@@ -4,7 +4,7 @@
 Summary: Extensions for Tcl and Tk
 Name: tclx
 Version: 8.3.5
-Release: 1
+Release: 2
 License: BSD
 Group: Development/Languages
 URL: http://tclx.sourceforge.net/
@@ -76,7 +76,8 @@ make all
 %install
 rm -rf $RPM_BUILD_ROOT
 
-make install -C unix INSTALL_ROOT=%{buildroot} TCLX_INST_LIB=%{_libdir} TKX_INST_LIB=%{_libdir} TCLX_INST_RUNTIME=%{_datadir}/tclX%{major_ver} TKX_INST_RUNTIME=%{_datadir}/tkX%{major_ver} TCLX_EXEC_RUNTIME=%{_libdir}/tclX%{major_ver} TKX_EXEC_RUNTIME=%{_libdir}/tkX%{major_ver} TCLX_INST_MAN=%{_mandir}
+# utf-8 locale needed to avoid truncating help files
+LANG=en_US.UTF-8 make install -C unix INSTALL_ROOT=%{buildroot} TCLX_INST_LIB=%{_libdir} TKX_INST_LIB=%{_libdir} TCLX_INST_RUNTIME=%{_datadir}/tclX%{major_ver} TKX_INST_RUNTIME=%{_datadir}/tkX%{major_ver} TCLX_EXEC_RUNTIME=%{_libdir}/tclX%{major_ver} TKX_EXEC_RUNTIME=%{_libdir}/tkX%{major_ver} TCLX_INST_MAN=%{_mandir}
 
 # for linking with -ltclx and -ltkx
 ln -s libtclx%{major_ver}.so %{buildroot}%{_libdir}/libtclx.so
@@ -127,6 +128,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man*
 
 %changelog
+* Wed Mar 03 2004 Jens Petersen <petersen@redhat.com> - 8.3.5-2
+- install using utf-8 locale so that tclhelp help files get built properly
+  (#116804)
+
+* Tue Mar 02 2004 Elliot Lee <sopwith@redhat.com> - 8.3.5-1.1
+- rebuilt
+
 * Wed Feb 25 2004 Jens Petersen <petersen@redhat.com> - 8.3.5-1
 - new package split out from tcltk
 - update to 8.3.5 release
