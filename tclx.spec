@@ -4,7 +4,7 @@
 Summary: Extensions for Tcl and Tk
 Name: tclx
 Version: 8.3.5
-Release: 5
+Release: 6
 License: BSD
 Group: Development/Languages
 URL: http://tclx.sourceforge.net/
@@ -82,6 +82,8 @@ LANG=en_US.UTF-8 make install -C unix INSTALL_ROOT=%{buildroot} TCLX_INST_LIB=%{
 # for linking with -ltclx and -ltkx
 ln -s libtclx%{major_ver}.so %{buildroot}%{_libdir}/libtclx.so
 ln -s libtkx%{major_ver}.so %{buildroot}%{_libdir}/libtkx.so
+ln -s libtclx%{major_ver}.a %{buildroot}%{_libdir}/libtclx.a
+ln -s libtkx%{major_ver}.a %{buildroot}%{_libdir}/libtkx.a
 
 # remove buildroot traces
 perl -pi -e "s!$PWD/t(cl|k)/unix!%{_libdir}!" %buildroot/%{_libdir}/t{cl,k}xConfig.sh
@@ -116,8 +118,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 %{_libdir}/libtclx.so
 %{_libdir}/libtkx.so
-%{_libdir}/libtclx%{major_ver}.a
-%{_libdir}/libtkx%{major_ver}.a
+%{_libdir}/libtclx*.a
+%{_libdir}/libtkx*.a
 
 %files doc
 %defattr(-,root,root,-)
@@ -128,6 +130,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man*
 
 %changelog
+* Wed Mar  9 2005 Jens Petersen <petersen@redhat.com> - 8.3.5-6
+- add unversioned symlinks to the static libs (Dave Botsch, 149734)
+- rebuild with gcc 4
+
 * Sun Feb 13 2005 Jens Petersen <petersen@redhat.com> - 8.3.5-5
 - rebuild
 
