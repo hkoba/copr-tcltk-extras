@@ -4,7 +4,7 @@
 Summary: Extensions for Tcl and Tk
 Name: tclx
 Version: 8.3.5
-Release: 3
+Release: 4
 License: BSD
 Group: Development/Languages
 URL: http://tclx.sourceforge.net/
@@ -13,7 +13,7 @@ Source1: tcl-%{tcltk_ver}-doc.tar.bz2
 Source2: tk-%{tcltk_ver}-doc.tar.bz2
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 Requires: tcl tk
-Buildrequires: tcl-devel tk-devel
+Buildrequires: tcl-devel tk-devel groff
 Patch1: tclx-8.3-varinit.patch
 Patch2: tclx-8.3-nonstrip.patch
 # avoid tclXtest target which requires .c files from tcl to build
@@ -128,6 +128,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man*
 
 %changelog
+* Thu Sep 30 2004 Jens Petersen <petersen@redhat.com> - 8.3.5-4
+- buildrequire groff (Maxim Dzumanenko, 124554)
+
 * Tue Jun 15 2004 Elliot Lee <sopwith@redhat.com>
 - rebuilt
 
