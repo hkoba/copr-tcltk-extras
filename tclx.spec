@@ -13,13 +13,14 @@ Source1: tcl-%{tcltk_ver}-doc.tar.bz2
 Source2: tk-%{tcltk_ver}-doc.tar.bz2
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 Requires: tcl tk
-Buildrequires: tcl-devel tk-devel groff
+Buildrequires: tcl-devel tk-devel groff autoconf213
 Patch1: tclx-8.3-varinit.patch
 Patch2: tclx-8.3-nonstrip.patch
 # avoid tclXtest target which requires .c files from tcl to build
 Patch3: tclx-8.3.5-tcl-mk-skiptest.patch
 Patch4: tclx-8.3.5-tclxConfig-ld-search-flags.patch
 Patch5: tclx-8.3.5-tcltk-man-help.patch
+Patch6: tclx-8.3.5-clock_t-gcc4.patch
 
 %description
 Extended Tcl (TclX) is a set of extensions to the Tcl programming language.
@@ -58,16 +59,20 @@ This package contains the tclx documentation
 
 %prep
 %setup -q -n tclx%{version} -a 1 -a 2
-%patch1 -p1 -b .orig
-%patch2 -p1 -b .orig
-%patch3 -p1 -b .test
-%patch4 -p1 -b .orig
-%patch5 -p1 -b .man
+%patch1 -p1 -b .1.orig
+%patch2 -p1 -b .2.orig
+%patch3 -p1 -b .3.test
+%patch4 -p1 -b .4.orig
+%patch5 -p1 -b .5.man
+%patch6 -p1 -b .6.clock_t
 
 %build
 cd unix
 # setup T(CL|K)X_LIB_SPEC correctly in t(cl|k)xConfig.sh
 export TCLX_INST_LIB=%{_libdir}
+
+# patch6 touches configure.in
+autoconf-2.13
 
 %configure --enable-tk=YES --with-tclconfig=%{_libdir} --with-tkconfig=%{_libdir} --with-tclinclude=%{_includedir} --with-tkinclude=%{_includedir} --enable-gcc --enable-64bit
 # smp building doesn't work
@@ -133,6 +138,8 @@ rm -rf $RPM_BUILD_ROOT
 * Wed Mar  9 2005 Jens Petersen <petersen@redhat.com> - 8.3.5-6
 - add unversioned symlinks to the static libs (Dave Botsch, 149734)
 - rebuild with gcc 4
+  - add tclx-8.3.5-clock_t-gcc4.patch to skip clock_t test in configure
+  - buildrequire autoconf213
 
 * Sun Feb 13 2005 Jens Petersen <petersen@redhat.com> - 8.3.5-5
 - rebuild
