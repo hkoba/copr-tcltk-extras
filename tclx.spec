@@ -4,7 +4,7 @@
 Summary: Extensions for Tcl and Tk
 Name: tclx
 Version: 8.3.5
-Release: 2
+Release: 3
 License: BSD
 Group: Development/Languages
 URL: http://tclx.sourceforge.net/
@@ -128,6 +128,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man*
 
 %changelog
+* Tue Jun 15 2004 Elliot Lee <sopwith@redhat.com>
+- rebuilt
+
 * Wed Mar 03 2004 Jens Petersen <petersen@redhat.com> - 8.3.5-2
 - install using utf-8 locale so that tclhelp help files get built properly
   (#116804)
