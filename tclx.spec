@@ -4,7 +4,7 @@
 Summary: Extensions for Tcl and Tk
 Name: tclx
 Version: 8.3.5
-Release: 4
+Release: 5
 License: BSD
 Group: Development/Languages
 URL: http://tclx.sourceforge.net/
@@ -128,6 +128,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man*
 
 %changelog
+* Sun Feb 13 2005 Jens Petersen <petersen@redhat.com> - 8.3.5-5
+- rebuild
+
 * Thu Sep 30 2004 Jens Petersen <petersen@redhat.com> - 8.3.5-4
 - buildrequire groff (Maxim Dzumanenko, 124554)
 
