@@ -4,7 +4,7 @@
 Summary: Extensions for Tcl and Tk
 Name: tclx
 Version: 8.3.5
-Release: 6
+Release: 6.1
 License: BSD
 Group: Development/Languages
 URL: http://tclx.sourceforge.net/
@@ -135,6 +135,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man*
 
 %changelog
+* Fri Dec 09 2005 Jesse Keating <jkeating@redhat.com>
+- rebuilt
+
 * Wed Mar  9 2005 Jens Petersen <petersen@redhat.com> - 8.3.5-6
 - add unversioned symlinks to the static libs (Dave Botsch, 149734)
 - rebuild with gcc 4
