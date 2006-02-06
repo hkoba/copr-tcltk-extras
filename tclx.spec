@@ -1,26 +1,20 @@
-%define major_ver 8.3
-%define tcltk_ver 8.4.5
+%define major_ver 8.4
+%define tcltk_ver 8.4.12
 
 Summary: Extensions for Tcl and Tk
 Name: tclx
-Version: 8.3.5
-Release: 6.1
+Version: %{major_ver}.0
+Release: 1
 License: BSD
 Group: Development/Languages
 URL: http://tclx.sourceforge.net/
-Source: http://prdownloads.sourceforge.net/tclx/tclx%{version}-src.tar.gz
-Source1: tcl-%{tcltk_ver}-doc.tar.bz2
-Source2: tk-%{tcltk_ver}-doc.tar.bz2
+Source: http://prdownloads.sourceforge.net/tclx/tclx%{major_ver}.tar.bz2
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
-Requires: tcl tk
-Buildrequires: tcl-devel tk-devel groff autoconf213
-Patch1: tclx-8.3-varinit.patch
-Patch2: tclx-8.3-nonstrip.patch
-# avoid tclXtest target which requires .c files from tcl to build
-Patch3: tclx-8.3.5-tcl-mk-skiptest.patch
-Patch4: tclx-8.3.5-tclxConfig-ld-search-flags.patch
-Patch5: tclx-8.3.5-tcltk-man-help.patch
-Patch6: tclx-8.3.5-clock_t-gcc4.patch
+Requires: tcl >= %{tcltk_ver}, tk >= %{tcltk_ver}
+BuildRequires: tcl-devel >= %{tcltk_ver}, tk-devel >= %{tcltk_ver}
+BuildRequires: groff, autoconf
+Patch1: tclx-%{major_ver}-varinit.patch
+Patch2: tclx-%{major_ver}-relid.patch
 
 %description
 Extended Tcl (TclX) is a set of extensions to the Tcl programming language.
@@ -58,43 +52,38 @@ and debugging tools.
 This package contains the tclx documentation
 
 %prep
-%setup -q -n tclx%{version} -a 1 -a 2
-%patch1 -p1 -b .1.orig
-%patch2 -p1 -b .2.orig
-%patch3 -p1 -b .3.test
-%patch4 -p1 -b .4.orig
-%patch5 -p1 -b .5.man
-%patch6 -p1 -b .6.clock_t
+%setup -q -n tclx%{major_ver}
+%patch1 -p1 -b .1.varinit
+%patch2 -p1 -b .2.relid
+
+# patch2 touches tcl.m4
+autoconf
 
 %build
-cd unix
-# setup T(CL|K)X_LIB_SPEC correctly in t(cl|k)xConfig.sh
-export TCLX_INST_LIB=%{_libdir}
-
-# patch6 touches configure.in
-autoconf-2.13
-
-%configure --enable-tk=YES --with-tclconfig=%{_libdir} --with-tkconfig=%{_libdir} --with-tclinclude=%{_includedir} --with-tkinclude=%{_includedir} --enable-gcc --enable-64bit
+%configure \
+   --enable-tk=YES \
+   --with-tclconfig=%{_libdir} \
+   --with-tkconfig=%{_libdir} \
+   --with-tclinclude=%{_includedir} \
+   --with-tkinclude=%{_includedir} \
+   --enable-gcc \
+   --enable-64bit
 # smp building doesn't work
 make all
+
+# run "make test" by default
+%{?_without_check: %define _without_check 1}
+%{!?_without_check: %define _without_check 0}
+
+%if ! %{_without_check}
+   make test
+%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
 # utf-8 locale needed to avoid truncating help files
-LANG=en_US.UTF-8 make install -C unix INSTALL_ROOT=%{buildroot} TCLX_INST_LIB=%{_libdir} TKX_INST_LIB=%{_libdir} TCLX_INST_RUNTIME=%{_datadir}/tclX%{major_ver} TKX_INST_RUNTIME=%{_datadir}/tkX%{major_ver} TCLX_EXEC_RUNTIME=%{_libdir}/tclX%{major_ver} TKX_EXEC_RUNTIME=%{_libdir}/tkX%{major_ver} TCLX_INST_MAN=%{_mandir}
-
-# for linking with -ltclx and -ltkx
-ln -s libtclx%{major_ver}.so %{buildroot}%{_libdir}/libtclx.so
-ln -s libtkx%{major_ver}.so %{buildroot}%{_libdir}/libtkx.so
-ln -s libtclx%{major_ver}.a %{buildroot}%{_libdir}/libtclx.a
-ln -s libtkx%{major_ver}.a %{buildroot}%{_libdir}/libtkx.a
-
-# remove buildroot traces
-perl -pi -e "s!$PWD/t(cl|k)/unix!%{_libdir}!" %buildroot/%{_libdir}/t{cl,k}xConfig.sh
-
-# rename memory.n since tcl-devel also provides it
-mv $RPM_BUILD_ROOT%{_mandir}/mann/{m,M}emory.n
+LANG=en_US.UTF-8 make install DESTDIR=%{buildroot}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -105,36 +94,23 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-%{_bindir}/tcl
-%{_bindir}/wishx
-%{_datadir}/tclX%{major_ver}
-%{_datadir}/tkX%{major_ver}
-%exclude %{_datadir}/tclX%{major_ver}/help
-%exclude %{_datadir}/tkX%{major_ver}/help
-%{_libdir}/libtclx%{major_ver}.so
-%{_libdir}/libtkx%{major_ver}.so
-%{_libdir}/tclX%{major_ver}
-%{_libdir}/tkX%{major_ver}
-%{_libdir}/tclxConfig.sh
-%{_libdir}/tkxConfig.sh
+%{_libdir}/%{name}%{major_ver}
 
 %files devel
 %defattr(-,root,root,-)
 %{_includedir}/*
-%{_libdir}/libtclx.so
-%{_libdir}/libtkx.so
-%{_libdir}/libtclx*.a
-%{_libdir}/libtkx*.a
 
 %files doc
 %defattr(-,root,root,-)
-%doc CHANGES ChangeLog README TO-DO doc/CONVERSION-NOTES
-%{_bindir}/tclhelp
-%{_datadir}/tclX%{major_ver}/help
-%{_datadir}/tkX%{major_ver}/help
+%doc ChangeLog README
 %{_mandir}/man*
 
 %changelog
+* Fri Feb 03 2006 David Cantrell <dcantrell@redhat.com> - 8.4.0-1
+- Upgraded to tclx-8.4.0
+- Removed patches that applied to the old build method for tclx
+- Removed Tcl and Tk doc archives
+
 * Fri Dec 09 2005 Jesse Keating <jkeating@redhat.com>
 - rebuilt
 
