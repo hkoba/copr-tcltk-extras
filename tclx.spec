@@ -4,7 +4,7 @@
 Summary: Extensions for Tcl and Tk
 Name: tclx
 Version: %{major_ver}.0
-Release: 1
+Release: 1.1
 License: BSD
 Group: Development/Languages
 URL: http://tclx.sourceforge.net/
@@ -106,6 +106,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man*
 
 %changelog
+* Tue Feb 07 2006 Jesse Keating <jkeating@redhat.com> - 8.4.0-1.1
+- rebuilt for new gcc4.1 snapshot and glibc changes
+
 * Fri Feb 03 2006 David Cantrell <dcantrell@redhat.com> - 8.4.0-1
 - Upgraded to tclx-8.4.0
 - Removed patches that applied to the old build method for tclx
