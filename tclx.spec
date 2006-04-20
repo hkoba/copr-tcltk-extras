@@ -1,10 +1,10 @@
 %define major_ver 8.4
-%define tcltk_ver 8.4.12
+%define tcltk_ver 8.4.13
 
 Summary: Extensions for Tcl and Tk
 Name: tclx
 Version: %{major_ver}.0
-Release: 1.2
+Release: 2
 License: BSD
 Group: Development/Languages
 URL: http://tclx.sourceforge.net/
@@ -106,6 +106,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man*
 
 %changelog
+* Thu Apr 20 2006 David Cantrell <dcantrell@redhat.com> - 8.4.0-2
+- Rebuild against Tcl/Tk 8.4.13
+
 * Fri Feb 10 2006 Jesse Keating <jkeating@redhat.com> - 8.4.0-1.2
 - bump again for double-long bug on ppc(64)
 
