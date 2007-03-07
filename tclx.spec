@@ -7,15 +7,15 @@
 Summary: Extensions for Tcl and Tk
 Name: tclx
 Version: %{major_ver}.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: BSD
 Group: Development/Languages
 URL: http://tclx.sourceforge.net/
 Source: http://prdownloads.sourceforge.net/tclx/tclx%{major_ver}.tar.bz2
-BuildRoot: %{_tmppath}/%{name}-%{version}-root
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires: tcl >= %{tcltk_ver}, tk >= %{tcltk_ver}
 BuildRequires: tcl-devel >= %{tcltk_ver}, tk-devel >= %{tcltk_ver}
-BuildRequires: groff, autoconf
+BuildRequires: autoconf
 Patch1: tclx-%{major_ver}-varinit.patch
 Patch2: tclx-%{major_ver}-relid.patch
 
@@ -25,6 +25,7 @@ Extended Tcl is oriented towards system programming tasks and large
 application development.  TclX provides additional interfaces to the
 operating system, and adds many new programming constructs, text manipulation
 and debugging tools.
+This package contains the tclx documentation.
 
 %package devel
 Summary: Extended Tcl development files
@@ -40,19 +41,6 @@ and debugging tools.
 
 This package contains the tclx development files needed for building
 tix applications.
-
-%package doc
-Summary: Extended Tcl help and documentation
-Group: Development/Languages
-
-%description doc
-Extended Tcl (TclX) is a set of extensions to the Tcl programming language.
-Extended Tcl is oriented towards system programming tasks and large
-application development.  TclX provides additional interfaces to the
-operating system, and adds many new programming constructs, text manipulation
-and debugging tools.
-
-This package contains the tclx documentation
 
 %prep
 %setup -q -n tclx%{major_ver}
@@ -74,6 +62,7 @@ autoconf
 # smp building doesn't work
 make all
 
+%check
 # run "make test" by default
 %{?_without_check: %define _without_check 1}
 %{!?_without_check: %define _without_check 0}
@@ -86,7 +75,7 @@ make all
 rm -rf $RPM_BUILD_ROOT
 
 # utf-8 locale needed to avoid truncating help files
-LANG=en_US.UTF-8 make install DESTDIR=%{buildroot}
+LANG=en_US.UTF-8 make install DESTDIR=$RPM_BUILD_ROOT
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -98,17 +87,17 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root,-)
 %{_libdir}/%{name}%{major_ver}
+%doc ChangeLog README
+%{_mandir}/mann/*
 
 %files devel
 %defattr(-,root,root,-)
 %{_includedir}/*
 
-%files doc
-%defattr(-,root,root,-)
-%doc ChangeLog README
-%{_mandir}/man*
-
 %changelog
+* Thu Mar 7 2007 Marcela Maslanova <mmaslano@redhat.com> - 8.4.0-6
+- rebuild for merge review
+
 * Tue Oct 2 2006 Marcela Maslanova <mmaslano@redhat.com> - 8.4.0-5
 - rebuild
 
