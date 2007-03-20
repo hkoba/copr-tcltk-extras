@@ -7,7 +7,7 @@
 Summary: Extensions for Tcl and Tk
 Name: tclx
 Version: %{major_ver}.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: BSD
 Group: Development/Languages
 URL: http://tclx.sourceforge.net/
@@ -15,9 +15,10 @@ Source: http://prdownloads.sourceforge.net/tclx/tclx%{major_ver}.tar.bz2
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires: tcl >= %{tcltk_ver}, tk >= %{tcltk_ver}
 BuildRequires: tcl-devel >= %{tcltk_ver}, tk-devel >= %{tcltk_ver}
-BuildRequires: autoconf
+#BuildRequires: autoconf
 Patch1: tclx-%{major_ver}-varinit.patch
 Patch2: tclx-%{major_ver}-relid.patch
+Patch3: tclx-%{major_ver}-man.patch
 
 %description
 Extended Tcl (TclX) is a set of extensions to the Tcl programming language.
@@ -46,9 +47,9 @@ tix applications.
 %setup -q -n tclx%{major_ver}
 %patch1 -p1 -b .1.varinit
 %patch2 -p1 -b .2.relid
+%patch3 -p1 -b .3.patch
 
 # patch2 touches tcl.m4
-autoconf
 
 %build
 %configure \
@@ -75,6 +76,7 @@ make all
 rm -rf $RPM_BUILD_ROOT
 
 # utf-8 locale needed to avoid truncating help files
+# it's easy way to change encoding on utf8
 LANG=en_US.UTF-8 make install DESTDIR=$RPM_BUILD_ROOT
 
 %clean
@@ -89,12 +91,16 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{name}%{major_ver}
 %doc ChangeLog README
 %{_mandir}/mann/*
+%{_mandir}/man3/*
 
 %files devel
 %defattr(-,root,root,-)
 %{_includedir}/*
 
 %changelog
+* Tue Mar 20 2007 Marcela Maslanova <mmaslano@redhat.com> - 8.4.0-7
+- rebuild for merge review
+
 * Thu Mar 7 2007 Marcela Maslanova <mmaslano@redhat.com> - 8.4.0-6
 - rebuild for merge review
 
