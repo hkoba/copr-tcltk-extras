@@ -1,5 +1,8 @@
+%{!?tcl_version: %define tcl_version %(echo 'puts $tcl_version' | tclsh)}
+%{!?tcl_sitearch: %define tcl_sitearch %{_libdir}/tcl%{tcl_version}}
 %define major_ver 8.4
 %define tcltk_ver 8.4.13
+#define for 8.4 is needed, tclx wasn't updated on higher version
 
 # Disable 'make test' for now since the unit tests are broken
 %define _without_check 1
@@ -7,7 +10,7 @@
 Summary: Extensions for Tcl and Tk
 Name: tclx
 Version: %{major_ver}.0
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: BSD
 Group: Development/Languages
 URL: http://tclx.sourceforge.net/
@@ -59,7 +62,8 @@ tix applications.
    --with-tclinclude=%{_includedir} \
    --with-tkinclude=%{_includedir} \
    --enable-gcc \
-   --enable-64bit
+   --enable-64bit \
+   --libdir=%{tcl_sitearch}
 # smp building doesn't work
 make all
 
@@ -88,8 +92,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-%{_libdir}/%{name}%{major_ver}
 %doc ChangeLog README
+%{tcl_sitearch}/%{name}%{major_ver}
 %{_mandir}/mann/*
 %{_mandir}/man3/*
 
@@ -98,6 +102,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 
 %changelog
+* Mon Jan  7 2008 Marcela Maslanova <mmaslano@redhat.com> - 8.4.0-9
+- rebuild for tcl8.5
+
 * Fri Aug 24 2007 Marcela Maslanova <mmaslano@redhat.com> - 8.4.0-8
 - rebuild for mass rebuild, check license
 
