@@ -10,7 +10,7 @@
 Summary: Extensions for Tcl and Tk
 Name: tclx
 Version: %{major_ver}.0
-Release: 9%{?dist}
+Release: 10%{?dist}
 License: BSD
 Group: Development/Languages
 URL: http://tclx.sourceforge.net/
@@ -102,6 +102,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 
 %changelog
+* Tue Feb 19 2008 Fedora Release Engineering <rel-eng@fedoraproject.org> - 8.4.0-10
+- Autorebuild for GCC 4.3
+
 * Mon Jan  7 2008 Marcela Maslanova <mmaslano@redhat.com> - 8.4.0-9
 - rebuild for tcl8.5
 
