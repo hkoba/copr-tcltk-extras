@@ -26,7 +26,7 @@ Patch3: tclx-%{major_ver}-man.patch
 %description
 Extended Tcl (TclX) is a set of extensions to the Tcl programming language.
 Extended Tcl is oriented towards system programming tasks and large
-application development.  TclX provides additional interfaces to the
+application development. TclX provides additional interfaces to the
 operating system, and adds many new programming constructs, text manipulation
 and debugging tools.
 This package contains the tclx documentation.
