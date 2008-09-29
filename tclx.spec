@@ -1,20 +1,21 @@
+%bcond_without wcheck
+
 %{!?tcl_version: %define tcl_version %(echo 'puts $tcl_version' | tclsh)}
 %{!?tcl_sitearch: %define tcl_sitearch %{_libdir}/tcl%{tcl_version}}
+
 %define major_ver 8.4
+%define upversion 8.5
 %define tcltk_ver 8.4.13
 #define for 8.4 is needed, tclx wasn't updated on higher version
-
-# Disable 'make test' for now since the unit tests are broken
-%define _without_check 1
 
 Summary: Extensions for Tcl and Tk
 Name: tclx
 Version: %{major_ver}.0
-Release: 10%{?dist}
+Release: 12%{?dist}
 License: BSD
 Group: Development/Languages
 URL: http://tclx.sourceforge.net/
-Source: http://prdownloads.sourceforge.net/tclx/tclx%{major_ver}.tar.bz2
+Source: http://downloads.sourceforge.net/%{name}/%{name}%{major_ver}.tar.bz2
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires: tcl >= %{tcltk_ver}, tk >= %{tcltk_ver}
 BuildRequires: tcl-devel >= %{tcltk_ver}, tk-devel >= %{tcltk_ver}
@@ -29,7 +30,6 @@ Extended Tcl is oriented towards system programming tasks and large
 application development. TclX provides additional interfaces to the
 operating system, and adds many new programming constructs, text manipulation
 and debugging tools.
-This package contains the tclx documentation.
 
 %package devel
 Summary: Extended Tcl development files
@@ -37,14 +37,8 @@ Group: Development/Languages
 Requires: tclx = %{version}-%{release}
 
 %description devel
-Extended Tcl (TclX) is a set of extensions to the Tcl programming language.
-Extended Tcl is oriented towards system programming tasks and large
-application development.  TclX provides additional interfaces to the
-operating system, and adds many new programming constructs, text manipulation
-and debugging tools.
-
 This package contains the tclx development files needed for building
-tix applications.
+applications embedding tclx.
 
 %prep
 %setup -q -n tclx%{major_ver}
@@ -69,39 +63,42 @@ make all
 
 %check
 # run "make test" by default
-%{?_without_check: %define _without_check 1}
-%{!?_without_check: %define _without_check 0}
-
-%if ! %{_without_check}
+%if %{without wcheck}
    make test
 %endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-# utf-8 locale needed to avoid truncating help files
-# it's easy way to change encoding on utf8
-LANG=en_US.UTF-8 make install DESTDIR=$RPM_BUILD_ROOT
+make install DESTDIR=$RPM_BUILD_ROOT INSTALL='install -p'
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post -p /sbin/ldconfig
-
-%postun -p /sbin/ldconfig
-
 %files
 %defattr(-,root,root,-)
 %doc ChangeLog README
-%{tcl_sitearch}/%{name}%{major_ver}
+%{_libdir}/tcl8.5/tclx8.4/
+%exclude %{_mandir}/man3/CmdWrite.*
+%exclude %{_mandir}/man3/Handles.*
+%exclude %{_mandir}/man3/TclXInit.3*
+%exclude %{_mandir}/man3/Keylist.3*
 %{_mandir}/mann/*
 %{_mandir}/man3/*
 
 %files devel
 %defattr(-,root,root,-)
 %{_includedir}/*
+%{_mandir}/man3/TclXInit.3*
+%{_mandir}/man3/Keylist.3*
 
 %changelog
+* Tue Sep 29 2008 Marcela Mašláňová <mmaslano@redhat.com> - 8.4.0-12
+- review, thanks for help to Patrice Dumas
+
+* Tue Sep 23 2008 Marcela Maslanova <mmaslano@redhat.com> - 8.4.0-11
+- change macros
+
 * Tue Feb 19 2008 Fedora Release Engineering <rel-eng@fedoraproject.org> - 8.4.0-10
 - Autorebuild for GCC 4.3
 
