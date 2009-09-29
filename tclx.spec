@@ -11,7 +11,7 @@
 Summary: Extensions for Tcl and Tk
 Name: tclx
 Version: %{major_ver}.0
-Release: 14%{?dist}
+Release: 15%{?dist}
 License: BSD
 Group: Development/Languages
 URL: http://tclx.sourceforge.net/
@@ -56,10 +56,11 @@ applications embedding tclx.
    --with-tclinclude=%{_includedir} \
    --with-tkinclude=%{_includedir} \
    --enable-gcc \
+   --disable-threads \
    --enable-64bit \
    --libdir=%{tcl_sitearch}
 # smp building doesn't work
-make all
+make %{?_smp_mflags}
 
 %check
 # run "make test" by default
@@ -72,13 +73,21 @@ rm -rf $RPM_BUILD_ROOT
 
 make install DESTDIR=$RPM_BUILD_ROOT INSTALL='install -p'
 
+mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/ld.so.conf.d/
+echo '%{_libdir}/tcl8.5/%{name}%{major_ver}' > $RPM_BUILD_ROOT%{_sysconfdir}/ld.so.conf.d/%{name}-%{_arch}.conf
+
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%post -p /sbin/ldconfig
+
+%postun -p /sbin/ldconfig
 
 %files
 %defattr(-,root,root,-)
 %doc ChangeLog README
 %{_libdir}/tcl8.5/tclx8.4/
+%{_sysconfdir}/ld.so.conf.d/%{name}-%{_arch}.conf
 %exclude %{_mandir}/man3/CmdWrite.*
 %exclude %{_mandir}/man3/Handles.*
 %exclude %{_mandir}/man3/TclXInit.3*
@@ -93,6 +102,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/Keylist.3*
 
 %changelog
+* Tue Sep 29 2009 Nikola Pajkovsky <npajkovs@redhat.com> 8.4.0-15
+- resolved: Bug 525058 -  ld.so not correctly configured after install
+
 * Sun Jul 26 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 8.4.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
 
