@@ -11,13 +11,13 @@
 Summary: Extensions for Tcl and Tk
 Name: tclx
 Version: %{major_ver}.0
-Release: 17%{?dist}
+Release: 18%{?dist}
 License: BSD
 Group: Development/Languages
 URL: http://tclx.sourceforge.net/
 Source: http://downloads.sourceforge.net/%{name}/%{name}%{major_ver}.tar.bz2
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-Requires: tcl >= %{tcltk_ver}, tk >= %{tcltk_ver}
+Requires: tcl%{?_isa} >= %{tcltk_ver}, tk%{?_isa} >= %{tcltk_ver}
 BuildRequires: tcl-devel >= %{tcltk_ver}, tk-devel >= %{tcltk_ver}
 #BuildRequires: autoconf
 Patch1: tclx-%{major_ver}-varinit.patch
@@ -102,6 +102,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/Keylist.3*
 
 %changelog
+* Mon Jan 23 2012 Jaroslav Škarvada <jskarvad@redhat.com> - 8.4.0-18
+- Fixed multilib deps
+  Resolves: rhbz#783891
+
 * Sat Jan 14 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 8.4.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
 
