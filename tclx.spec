@@ -11,7 +11,7 @@
 Summary: Extensions for Tcl and Tk
 Name: tclx
 Version: %{major_ver}.0
-Release: 22%{?dist}
+Release: 23%{?dist}
 License: BSD
 Group: Development/Languages
 URL: http://tclx.sourceforge.net/
@@ -23,6 +23,7 @@ BuildRequires: tcl-devel >= %{tcltk_ver}, tk-devel >= %{tcltk_ver}
 Patch1: tclx-%{major_ver}-varinit.patch
 Patch2: tclx-%{major_ver}-relid.patch
 Patch3: tclx-%{major_ver}-man.patch
+Patch4: tclx-%{major_ver}-tcl86.patch
 
 %description
 Extended Tcl (TclX) is a set of extensions to the Tcl programming language.
@@ -45,6 +46,7 @@ applications embedding tclx.
 %patch1 -p1 -b .1.varinit
 %patch2 -p1 -b .2.relid
 %patch3 -p1 -b .3.patch
+%patch4 -p1 -b .4.tcl86
 
 # patch2 touches tcl.m4
 
@@ -86,7 +88,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root,-)
 %doc ChangeLog README
-%{_libdir}/tcl8.5/tclx8.4/
+%{_libdir}/tcl8.6/tclx8.4/
 %{_sysconfdir}/ld.so.conf.d/%{name}-%{_arch}.conf
 %exclude %{_mandir}/man3/CmdWrite.*
 %exclude %{_mandir}/man3/Handles.*
@@ -102,6 +104,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/Keylist.3*
 
 %changelog
+* Tue Jun 10 2014 Jaroslav Škarvada <jskarvad@redhat.com> - 8.4.0-23
+- Fixed build with tcl/tk-8.6 (by tcl86 patch)
+- Fixed bogus dates in changelog (best effort)
+
 * Sun Jun 08 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 8.4.0-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
 
@@ -133,7 +139,7 @@ rm -rf $RPM_BUILD_ROOT
 * Wed Feb 25 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 8.4.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
 
-* Tue Sep 29 2008 Marcela Mašláňová <mmaslano@redhat.com> - 8.4.0-12
+* Mon Sep 29 2008 Marcela Mašláňová <mmaslano@redhat.com> - 8.4.0-12
 - review, thanks for help to Patrice Dumas
 
 * Tue Sep 23 2008 Marcela Maslanova <mmaslano@redhat.com> - 8.4.0-11
@@ -151,10 +157,10 @@ rm -rf $RPM_BUILD_ROOT
 * Tue Mar 20 2007 Marcela Maslanova <mmaslano@redhat.com> - 8.4.0-7
 - rebuild for merge review
 
-* Thu Mar 7 2007 Marcela Maslanova <mmaslano@redhat.com> - 8.4.0-6
+* Wed Mar 7 2007 Marcela Maslanova <mmaslano@redhat.com> - 8.4.0-6
 - rebuild for merge review
 
-* Tue Oct 2 2006 Marcela Maslanova <mmaslano@redhat.com> - 8.4.0-5
+* Mon Oct 2 2006 Marcela Maslanova <mmaslano@redhat.com> - 8.4.0-5
 - rebuild
 
 * Fri Sep 15 2006 Marcela Maslanova <mmaslano@redhat.com> - 8.4-4
@@ -278,7 +284,7 @@ rm -rf $RPM_BUILD_ROOT
 * Mon Jan 07 2002 Florian La Roche <Florian.LaRoche@redhat.de>
 - fix config.guess and config.sub to newer versions
 
-* Mon Aug  8 2001 Adrian Havill <havill@redhat.com>
+* Wed Aug  8 2001 Adrian Havill <havill@redhat.com>
 - re-enable glibc string and math inlines; recent gcc is a-ok.
 - optimize at -O2 instead of -O
 - rename "soname" patches related to makefile/autoconf changes
