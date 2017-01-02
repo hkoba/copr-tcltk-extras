@@ -1,7 +1,7 @@
 %bcond_without wcheck
 
-%{!?tcl_version: %define tcl_version %(echo 'puts $tcl_version' | tclsh)}
-%{!?tcl_sitearch: %define tcl_sitearch %{_libdir}/tcl%{tcl_version}}
+%{!?tcl_version: %global tcl_version %(echo 'puts $tcl_version' | tclsh)}
+%{!?tcl_sitearch: %global tcl_sitearch %{_libdir}/tcl%{tcl_version}}
 
 %define major_ver 8.4
 %define upversion 8.5
@@ -11,7 +11,7 @@
 Summary: Extensions for Tcl and Tk
 Name: tclx
 Version: %{major_ver}.0
-Release: 26%{?dist}
+Release: 27%{?dist}
 License: BSD
 Group: Development/Languages
 URL: http://tclx.sourceforge.net/
@@ -76,7 +76,7 @@ rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT INSTALL='install -p'
 
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/ld.so.conf.d/
-echo '%{_libdir}/tcl8.5/%{name}%{major_ver}' > $RPM_BUILD_ROOT%{_sysconfdir}/ld.so.conf.d/%{name}-%{_arch}.conf
+echo '%{_libdir}/tcl%{tcl_version}/%{name}%{major_ver}' > $RPM_BUILD_ROOT%{_sysconfdir}/ld.so.conf.d/%{name}-%{_arch}.conf
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -104,6 +104,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/Keylist.3*
 
 %changelog
+* Mon Jan  2 2017 Jaroslav Škarvada <jskarvad@redhat.com> - 8.4.0-27
+- Fixed hardcoded TCL path in ld.so.conf.d
+
 * Fri Feb 05 2016 Fedora Release Engineering <releng@fedoraproject.org> - 8.4.0-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
 
