@@ -16,7 +16,6 @@ License: BSD
 Group: Development/Languages
 URL: http://tclx.sourceforge.net/
 Source: http://downloads.sourceforge.net/%{name}/%{name}%{major_ver}.tar.bz2
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires: tcl%{?_isa} >= %{tcltk_ver}, tk%{?_isa} >= %{tcltk_ver}
 BuildRequires: tcl-devel >= %{tcltk_ver}, tk-devel >= %{tcltk_ver}
 #BuildRequires: autoconf
