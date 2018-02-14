@@ -77,9 +77,6 @@ make install DESTDIR=$RPM_BUILD_ROOT INSTALL='install -p'
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/ld.so.conf.d/
 echo '%{_libdir}/tcl%{tcl_version}/%{name}%{major_ver}' > $RPM_BUILD_ROOT%{_sysconfdir}/ld.so.conf.d/%{name}-%{_arch}.conf
 
-%clean
-rm -rf $RPM_BUILD_ROOT
-
 %post -p /sbin/ldconfig
 
 %postun -p /sbin/ldconfig
