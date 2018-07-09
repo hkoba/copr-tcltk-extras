@@ -17,6 +17,7 @@ Group: Development/Languages
 URL: http://tclx.sourceforge.net/
 Source: http://downloads.sourceforge.net/%{name}/%{name}%{major_ver}.tar.bz2
 Requires: tcl%{?_isa} >= %{tcltk_ver}, tk%{?_isa} >= %{tcltk_ver}
+BuildRequires:  gcc
 BuildRequires: tcl-devel >= %{tcltk_ver}, tk-devel >= %{tcltk_ver}
 #BuildRequires: autoconf
 Patch1: tclx-%{major_ver}-varinit.patch
