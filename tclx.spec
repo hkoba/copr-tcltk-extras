@@ -83,7 +83,6 @@ echo '%{_libdir}/tcl%{tcl_version}/%{name}%{major_ver}' > $RPM_BUILD_ROOT%{_sysc
 %postun -p /sbin/ldconfig
 
 %files
-%defattr(-,root,root,-)
 %doc ChangeLog README
 %{_libdir}/tcl8.6/tclx8.4/
 %{_sysconfdir}/ld.so.conf.d/%{name}-%{_arch}.conf
@@ -95,7 +94,6 @@ echo '%{_libdir}/tcl%{tcl_version}/%{name}%{major_ver}' > $RPM_BUILD_ROOT%{_sysc
 %{_mandir}/man3/*
 
 %files devel
-%defattr(-,root,root,-)
 %{_includedir}/*
 %{_mandir}/man3/TclXInit.3*
 %{_mandir}/man3/Keylist.3*
