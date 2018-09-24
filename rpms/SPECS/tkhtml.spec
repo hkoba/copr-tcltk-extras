@@ -1,5 +1,5 @@
 %global commit 416793e06e0c9899987d26068990d0122af50c19
-%global shortcommit %(c=%{commit}; echo ${c:0:7})    [GitHub]
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define _github_owner hkoba
 %define _github_project tkhtml3
