@@ -25,7 +25,7 @@ TkHTML is a tk widget for Tcl. This module provides basic HTML rendering and
 browsing functionarity.
 
 %prep
-%setup -q -n %{pure_name}-%{tkhtml_major}
+%setup -q -n %{pure_name}%{tkhtml_major}-%{commit}
 
 %build
 ./configure --with-tcl=%{_libdir} --with-tk=%{_libdir} \
