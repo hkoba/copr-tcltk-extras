@@ -9,7 +9,7 @@ License: TCL
 Group: Development/Libraries
 Source: https://download.sourceforge.net/tktable/Tktable%{version}.tar.gz
 URL: http://tktable.sourceforge.net/
-BuildRequires: tk-devel >= %{tcl_version}, libXt-devel
+BuildRequires: gcc, tk-devel >= %{tcl_version}, libXt-devel
 Requires: tk >= %{tcl_version}
 BuildRoot: %_tmppath/%name-%version-%release-root-%(%__id_u -n)
 
