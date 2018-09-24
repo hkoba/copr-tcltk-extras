@@ -83,7 +83,7 @@ rm -rf $RPM_BUILD_ROOT
 - Rebuilt for tcl 8.5
 - Following PackagingDrafts/Tcl
 
-* Tue Mar 1 2006 Jean-Luc Fontaine <jfontain@free.fr> 2.9-9
+* Wed Mar 1 2006 Jean-Luc Fontaine <jfontain@free.fr> 2.9-9
 - fixed problem in configuration stage 
 
 * Tue Feb 28 2006 Jean-Luc Fontaine <jfontain@free.fr> 2.9-8
@@ -105,16 +105,16 @@ rm -rf $RPM_BUILD_ROOT
 * Sun May 22 2005 Jeremy Katz <katzj@redhat.com> - 2.9-3
 - rebuild on all arches
 
-* Fri Apr  7 2005 Michael Schwendt <mschwendt[AT]users.sf.net>
+* Thu Apr  7 2005 Michael Schwendt <mschwendt[AT]users.sf.net>
 - rebuilt
 
 * Mon Sep 20 2004 Jean-Luc Fontaine <jfontain@free.fr> 0:2.9-0.fdr.1
 - Tktable version 2.9 new source release
 
-* Tue Dec 8 2003 Jean-Luc Fontaine <jfontain@free.fr> 0:2.8-0.fdr.10
+* Mon Dec 8 2003 Jean-Luc Fontaine <jfontain@free.fr> 0:2.8-0.fdr.10
 - removed %%doc tag for manual page since rpm does it automatically
 
-* Tue Dec 7 2003 Jean-Luc Fontaine <jfontain@free.fr> 0:2.8-0.fdr.9
+* Sun Dec 7 2003 Jean-Luc Fontaine <jfontain@free.fr> 0:2.8-0.fdr.9
 - changed license to BSD like
 - removed redundant XFree86 libraries build requirement
 - added SMP flags to make stage
@@ -129,7 +129,7 @@ rm -rf $RPM_BUILD_ROOT
 - in build requirements, work around tcl-devel and tk-devel packages non
   existence in RH 8.0 and 9
 
-* Tue Nov 6 2003 Jean-Luc Fontaine <jfontain@free.fr> 0:2.8-0.fdr.6
+* Thu Nov 6 2003 Jean-Luc Fontaine <jfontain@free.fr> 0:2.8-0.fdr.6
 - escaped percent characters in change log
 
 * Tue Nov 4 2003 Jean-Luc Fontaine <jfontain@free.fr> 0:2.8-0.fdr.5
@@ -142,7 +142,7 @@ rm -rf $RPM_BUILD_ROOT
 - no longer use RPM_OPT_FLAGS in CFLAGS as make argument as %%configure
   already handles it
 
-* Tue Nov 1 2003 Jean-Luc Fontaine <jfontain@free.fr> 0:2.8-0.fdr.4
+* Sat Nov 1 2003 Jean-Luc Fontaine <jfontain@free.fr> 0:2.8-0.fdr.4
 - removed RCS line
 - set Epoch to 0 and removed it from Release
 - used a full macroless URL to the source tarball
