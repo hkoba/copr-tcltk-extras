@@ -7,7 +7,7 @@ Version: 2.10
 Release: 2hk1
 License: TCL
 Group: Development/Libraries
-Source: http://download.sourceforge.net/tktable/Tktable%{version}.tar.gz
+Source: https://download.sourceforge.net/tktable/Tktable%{version}.tar.gz
 URL: http://tktable.sourceforge.net/
 BuildRequires: tk-devel >= %{tcl_version}, libXt-devel
 Requires: tk >= %{tcl_version}
