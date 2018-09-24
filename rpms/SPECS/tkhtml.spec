@@ -1,4 +1,4 @@
-%global commit 416793e06e0c9899987d26068990d0122af50c19
+%global commit 80afcc8fecd5f86f138ebd0065ba6785a48e5721
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define _github_owner hkoba
