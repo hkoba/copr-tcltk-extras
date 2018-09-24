@@ -1,4 +1,4 @@
-%{!?tcl_version: %define tcl_version %(echo 'puts $tcl_version' | tclsh)}
+%define tcl_version 8.6
 %{!?tcl_sitearch: %define tcl_sitearch %{_libdir}/tcl%{tcl_version}}
 
 Summary: Table/matrix widget extension to Tcl/Tk
