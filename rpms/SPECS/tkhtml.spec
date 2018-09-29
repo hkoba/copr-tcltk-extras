@@ -12,7 +12,7 @@
 Summary: HTML widget for Tcl/Tk
 Name: tkhtml3
 Version: %{tkhtml_major}.0
-Release: 5hk
+Release: 6hk
 Group: Development/Languages
 License: LGPL2
 Source0: https://github.com/%{_github_owner}/%{_github_project}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -25,26 +25,23 @@ TkHTML is a tk widget for Tcl. This module provides basic HTML rendering and
 browsing functionarity.
 
 %prep
+echo PREP start
 %setup -q -n %{pure_name}%{tkhtml_major}-%{commit}
 
 %build
 ./configure --with-tcl=%{_libdir} --with-tk=%{_libdir} \
    --mandir=%{_mandir} --libdir=%{tcl_libdir} \
    %{?_with_thread: --enable-threads} --enable-shared
-make
+
+make CFLAGS="-fPIC %{optflags}"
 
 %install
-rm -rf $RPM_BUILD_ROOT
-mkdir -p $RPM_BUILD_ROOT{%{_exec_prefix},%{_libdir},%{_datadir}}
-make DESTDIR=$RPM_BUILD_ROOT install 
+make DESTDIR=$RPM_BUILD_ROOT install
 
-%clean
-rm -rf $RPM_BUILD_ROOT
-
-%files 
+%files
 %defattr(-,root,root)
 %doc COPYRIGHT README
-%{_libdir}/tcl%{tcl_version}/*
+%{_libdir}/tcl%{tcl_version}/Tkhtml3.0/*
 %{_mandir}/mann/*
 
 
