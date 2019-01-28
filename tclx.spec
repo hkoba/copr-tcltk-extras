@@ -13,7 +13,6 @@ Name: tclx
 Version: %{major_ver}.0
 Release: 32%{?dist}
 License: BSD
-Group: Development/Languages
 URL: http://tclx.sourceforge.net/
 Source: http://downloads.sourceforge.net/%{name}/%{name}%{major_ver}.tar.bz2
 Requires: tcl%{?_isa} >= %{tcltk_ver}, tk%{?_isa} >= %{tcltk_ver}
@@ -34,7 +33,6 @@ and debugging tools.
 
 %package devel
 Summary: Extended Tcl development files
-Group: Development/Languages
 Requires: tclx = %{version}-%{release}
 
 %description devel
