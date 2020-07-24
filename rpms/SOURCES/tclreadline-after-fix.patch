@@ -1,0 +1,16 @@
+--- tclreadline-2.1.0/tclreadline.c	2003-11-22 01:50:45.000000000 +0900
++++ /home/hkoba/db/monthly/200311/tclreadline.c	2003-11-22 01:47:27.000000000 +0900
+@@ -486,6 +486,13 @@
+ static void
+ TclReadlineLineCompleteHandler(char* ptr)
+ {
++    /**
++     * Since complete handler is called from DoOneEvent,
++     * interp->result could be corrupted by other event handler (i.e. after).
++     * So we should call Tcl_ResetResult first.
++     */
++    Tcl_ResetResult(tclrl_interp);
++
+     if (!ptr) { /* <c-d> */
+ 
+ 	TclReadlineTerminate(LINE_EOF);

@@ -1,0 +1,22 @@
+--- tclreadline-2.1.0/configure.in.orig	2014-02-06 17:27:00.184823394 +0900
++++ tclreadline-2.1.0/configure.in	2014-02-06 17:28:30.025526130 +0900
+@@ -89,7 +89,7 @@
+ if test "${prefix}" = "NONE"; then
+     prefix=$TCL_PREFIX
+ fi
+-TCLRL_LIBDIR="${prefix}/lib"
++TCLRL_LIBDIR="$TCL_LIB_DIR"
+ AC_SUBST(TCLRL_LIBDIR)
+ TCLRL_DIR="${TCLRL_LIBDIR}/tclreadline$VERSION"
+ AC_SUBST(TCLRL_DIR)
+--- tclreadline-2.1.0/tclreadlineInit.tcl.in.orig	2014-02-06 18:54:10.132212511 +0900
++++ tclreadline-2.1.0/tclreadlineInit.tcl.in	2014-02-06 18:54:38.007118452 +0900
+@@ -18,7 +18,7 @@
+ proc ::tclreadline::Init {} {
+     uplevel #0 {
+ 	if ![info exists tclreadline::library] {
+-	    if [catch {load [file join @TCLRL_LIBDIR@ libtclreadline[info sharedlibextension]]} msg] {
++	    if [catch {load [file join [file dirname [info script]] libtclreadline[info sharedlibextension]]} msg] {
+ 		puts stderr $msg
+ 		exit 2
+ 	    }
