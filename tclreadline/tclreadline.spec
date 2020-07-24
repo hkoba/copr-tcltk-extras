@@ -1,3 +1,4 @@
+# XXX How can I specify 8.5 when target distro uses it (like centos7)?
 %define tcl_version 8.6
 %define _tcldir /usr/lib64/tcl%{tcl_version}
 
@@ -26,6 +27,7 @@ Group: System/Libraries
 # Automatically added by buildreq on Thu Apr 26 2001
 # BuildRequires: libreadline-devel ncurses-devel tcl-devel tk XFree86-devel XFree86-libs
 BuildRequires: autoconf automake libtool ncurses-devel readline-devel
+BuildRequires: tcl-devel >= %{tcl_version}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}
 
 %description
