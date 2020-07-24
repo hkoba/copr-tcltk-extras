@@ -12,7 +12,7 @@ Name: %{name}
 Version: %{version}
 Release: %{release}
 URL: http://tclreadline.sourceforge.net
-Source0: ftp://tclreadline.sourceforge.net/pub/tclreadline/%{name}-%{version}.tar.bz2
+Source0: https://downloads.sourceforge.net/project/tclreadline/tclreadline/%{name}-%{version}/%{name}-%{version}.tar.gz
 Source1: sample.tclshrc
 Patch1:  tclreadline.c.encoding.patch
 Patch2:  tclreadline-after-fix.patch
