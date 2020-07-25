@@ -1,10 +1,13 @@
-# XXX How can I specify 8.5 when target distro uses it (like centos7)?
+%if "%{dist}" == ".el7"
+%define tcl_version 8.5
+%else
 %define tcl_version 8.6
+%endif
 %define _tcldir /usr/lib64/tcl%{tcl_version}
 
 %define name tclreadline
 %define version 2.1.0
-%define release 6h
+%define release 7h
 
 %define _tclrl_libdir %{_tcldir}/%{name}%{version}
 
