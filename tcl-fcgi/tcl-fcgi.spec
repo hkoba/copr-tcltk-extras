@@ -1,5 +1,5 @@
-%{!?tcl_version: %global tcl_version %(echo 'puts $tcl_version' | tclsh)}
-%{!?tcl_sitelib: %global tcl_sitelib %{_datadir}/tcl%{tcl_version}}
+%define tcl_version 8.6
+%define tcl_sitelib %{_datadir}/tcl%{tcl_version}
 
 %define version	 0.4
 %define _micro_version 0

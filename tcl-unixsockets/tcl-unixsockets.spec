@@ -1,4 +1,4 @@
-%{!?tcl_version: %define tcl_version %(echo 'puts $tcl_version' | tclsh)}
+%define tcl_version 8.6
 %define _tcldir /usr/lib64/tcl%{tcl_version}
 
 %define name tcl-unixsockets

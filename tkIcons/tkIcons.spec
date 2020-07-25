@@ -1,4 +1,5 @@
-%define tcl_libpath %(echo 'puts [info library]'|tclsh)
+%define tcl_version 8.6
+%define tcl_libpath %{_datadir}/%{tcl_version}
 %define ver 1.0
 
 Summary: tkIcons(ICONS) is a cross platform icon library facility for Tcl/Tk programmers.
