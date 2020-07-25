@@ -5,7 +5,7 @@
 Summary: tkIcons(ICONS) is a cross platform icon library facility for Tcl/Tk programmers.
 Name: tkIcons
 Version: %ver
-Release: 2
+Release: 3
 License: Original
 Vendor: Adrian Davis (adrian@satisoft.com)
 Group: System Environment/Libraries
@@ -22,7 +22,7 @@ BuildRequires: ed
 %description
 
 %prep
-%setup -c %{name} -q -a 1 -a 2 -a 3
+%setup -n icons2 -a 1 -a 2 -a 3
 ed viewIcons.tcl <<END
 1i
 #!/usr/bin/wish
