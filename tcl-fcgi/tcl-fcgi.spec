@@ -1,8 +1,8 @@
-%define tcl_version 8.6
-%define tcl_sitelib %{_datadir}/tcl%{tcl_version}
+%global tcl_version 8.6
+%global tcl_sitelib %{_datadir}/tcl%{tcl_version}
 
-%define version	 0.4
-%define _micro_version 0
+%global version	 0.4
+%global _micro_version 0
 
 Summary:   FastCGI interface for Tcl 8
 Name:      tcl-fcgi

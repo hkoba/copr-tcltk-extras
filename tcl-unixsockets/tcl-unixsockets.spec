@@ -1,9 +1,9 @@
-%define tcl_version 8.6
-%define _tcldir /usr/lib64/tcl%{tcl_version}
+%global tcl_version 8.6
+%global _tcldir /usr/lib64/tcl%{tcl_version}
 
-%define name tcl-unixsockets
-%define version 0.2
-%define release 1h
+%global name tcl-unixsockets
+%global version 0.2
+%global release 1h
 
 Summary: unix_sockets for Tcl
 Name: %{name}

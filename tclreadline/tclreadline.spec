@@ -1,15 +1,15 @@
 %if "%{dist}" == ".el7"
-%define tcl_version 8.5
+%global tcl_version 8.5
 %else
-%define tcl_version 8.6
+%global tcl_version 8.6
 %endif
-%define _tcldir /usr/lib64/tcl%{tcl_version}
+%global _tcldir /usr/lib64/tcl%{tcl_version}
 
-%define name tclreadline
-%define version 2.1.0
-%define release 7h
+%global name tclreadline
+%global version 2.1.0
+%global release 7h
 
-%define _tclrl_libdir %{_tcldir}/%{name}%{version}
+%global _tclrl_libdir %{_tcldir}/%{name}%{version}
 
 Summary: GNU readline for TCL
 Name: %{name}

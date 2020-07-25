@@ -1,6 +1,6 @@
-%define tcl_version 8.6
-%define tcl_libpath %{_datadir}/%{tcl_version}
-%define ver 1.0
+%global tcl_version 8.6
+%global tcl_libpath %{_datadir}/%{tcl_version}
+%global ver 1.0
 
 Summary: tkIcons(ICONS) is a cross platform icon library facility for Tcl/Tk programmers.
 Name: tkIcons
