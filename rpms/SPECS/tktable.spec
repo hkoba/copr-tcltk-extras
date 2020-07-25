@@ -1,10 +1,14 @@
-%define tcl_version 8.6
-%{!?tcl_sitearch: %define tcl_sitearch %{_libdir}/tcl%{tcl_version}}
+%if "%{dist}" == ".el7"
+%global tcl_version 8.5
+%else
+%global tcl_version 8.6
+%endif
+%{!?tcl_sitearch: %global tcl_sitearch %{_libdir}/tcl%{tcl_version}}
 
 Summary: Table/matrix widget extension to Tcl/Tk
 Name: tktable
 Version: 2.10
-Release: 2hk1
+Release: 2hk2
 License: TCL
 Group: Development/Libraries
 Source: https://download.sourceforge.net/tktable/Tktable%{version}.tar.gz

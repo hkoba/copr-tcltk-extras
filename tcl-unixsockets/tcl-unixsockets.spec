@@ -1,4 +1,8 @@
+%if "%{dist}" == ".el7"
+%global tcl_version 8.5
+%else
 %global tcl_version 8.6
+%endif
 %global _tcldir /usr/lib64/tcl%{tcl_version}
 
 %global name tcl-unixsockets

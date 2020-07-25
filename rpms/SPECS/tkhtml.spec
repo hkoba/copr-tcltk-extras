@@ -1,13 +1,17 @@
 %global commit 96e3e296691ec1a4fceaac7f9796438bea936b35
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
-%define _github_owner hkoba
-%define _github_project tkhtml3
+%global _github_owner hkoba
+%global _github_project tkhtml3
 
-%define tcl_version 8.6
-%define tcl_libdir %{_libdir}/tcl%{tcl_version}
-%define tkhtml_major 3
-%define pure_name tkhtml
+%if "%{dist}" == ".el7"
+%global tcl_version 8.5
+%else
+%global tcl_version 8.6
+%endif
+%global tcl_libdir %{_libdir}/tcl%{tcl_version}
+%global tkhtml_major 3
+%global pure_name tkhtml
 
 Summary: HTML widget for Tcl/Tk
 Name: tkhtml3
