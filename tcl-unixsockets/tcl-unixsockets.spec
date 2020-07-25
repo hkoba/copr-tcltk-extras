@@ -16,7 +16,7 @@ Group: System/Libraries
 # Automatically added by buildreq on Thu Apr 26 2001
 # BuildRequires: libreadline-devel ncurses-devel tcl-devel tk XFree86-devel XFree86-libs
 BuildRequires: autoconf automake libtool
-BuildRequires: tcl-devel >= %{tcl_version}
+BuildRequires: tcl, tcl-devel >= %{tcl_version}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}
 
 %description
