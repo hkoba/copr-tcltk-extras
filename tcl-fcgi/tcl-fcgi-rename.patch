@@ -1,0 +1,19 @@
+--- tcl-src/fcgi.tcl.in.orig	2004-12-13 15:35:38.000000000 +0900
++++ tcl-src/fcgi.tcl.in	2004-12-13 15:35:56.000000000 +0900
+@@ -109,11 +109,11 @@
+ #set fcgi($requestId,role)      0	;# fcgi role
+ 
+ # rename Tcl io commands so we can redefine them as fcgi aware
+-rename gets  _gets_tcl
+-rename read  _read_tcl
+-rename flush _flush_tcl
+-rename puts  _puts_tcl
+-rename eof   _eof_tcl
++rename gets  _gets_tcl; interp alias {} gets {} ::fcgi::_gets_tcl;
++rename read  _read_tcl; interp alias {} read  {} ::fcgi::_read_tcl;
++rename flush _flush_tcl; interp alias {} flush {} ::fcgi::_flush_tcl;
++rename puts  _puts_tcl; interp alias {} puts  {} ::fcgi::_puts_tcl;
++rename eof   _eof_tcl; interp alias {} eof   {} ::fcgi::_eof_tcl;
+  
+ 
+ }   ;# end of namespace eval fcgi
