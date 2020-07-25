@@ -9,13 +9,13 @@ Name:      tcl-fcgi
 Version:   %{version}
 Group:     Development/Languages/Tcl
 URL:       https://www.nyx.net/~tpoindex/tcl.html#Fcgi
-Release:   3h
+Release:   4h
 Source:    ftp://ftp.procplace.com/pub/tcl/sorted/packages-7.6/net/fcgi.tcl-0.4/fcgi.tcl-%{version}.tar.gz
 Patch0: tcl-fcgi-rename.patch
 License:   BSD
 Packager:  hkoba <hkoba@users.sourceforge.net>
 Buildroot: %{_tmppath}/%{name}-%{version}
-Requires:  tcl, tclx, mod_fastcgi
+Requires:  tcl, tclx
 BuildRequires: tcl
 BuildArch:  noarch
 
