@@ -16,6 +16,7 @@ Source3: http://www.satisoft.com/tcltk/icons/icons-slick.zip
 Requires: tk
 BuildArch: noarch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+BuildRequires: ed
 
 %description
 
