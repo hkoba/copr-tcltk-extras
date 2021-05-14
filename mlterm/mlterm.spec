@@ -12,6 +12,7 @@ Group:         User Interface/X
 URL:           https://github.com/arakiken/mlterm
 Source0:       %{url}/archive/%{_mlterm_rel}/%{name}-%{_mlterm_rel}.tar.gz
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+BuildRequires: make, gcc
 BuildRequires: gtk3-devel gtk2-devel libssh2-devel libXft-devel gettext
 BuildRequires: gtk2-devel libssh2-devel
 #BuildRequires: chrpath
