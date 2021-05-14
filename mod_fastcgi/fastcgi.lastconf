@@ -1,0 +1,12 @@
+#
+# Note. You should have User/Group directive *before* this conf.
+# Otherwise, you will get errors like:
+#
+# FastCGI: can't create server "test.fcgi": bind() failed [/etc/httpd/logs/fastcgi/89a667566f0602844cb87ab35318cadf
+# FastCGI: failed to connect to (dynamic) server "test.fcgi": something is seriously wrong, any chance the socket/named_pipe directory was removed?, see the FastCgiIpcDir directive
+#
+LoadModule fastcgi_module modules/mod_fastcgi.so
+AddHandler fastcgi-script .fcgi
+FastCgiIpcDir /var/run/fastcgi
+
+FastCgiConfig -startDelay 2 -appConnTimeout 30 -idle-timeout 60 -minProcesses 130 -maxProcesses 2000 -singleThreshold 1 -maxClassProcesses 1 -killInterval 864000 -updateInterval 864000 -gainValue 1
