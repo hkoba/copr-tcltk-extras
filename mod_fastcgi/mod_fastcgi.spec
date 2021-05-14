@@ -14,7 +14,8 @@ Version: 2.4.7.1
 Release: 2h2
 Group: System Environment/Daemons
 License: Original (See LICENSE.TERMS)
-Source0: https://github.com/FastCGI-Archives/mod_fastcgi/archive/refs/tags/%{name}-%{version}.tar.gz
+URL: https://github.com/FastCGI-Archives/mod_fastcgi
+Source0: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Source1: fastcgi.lastconf
 #NoSource: 0
 Buildroot: /var/tmp/%{name}-%{version}-root
