@@ -20,7 +20,7 @@ Source1: fastcgi.lastconf
 #NoSource: 0
 Buildroot: /var/tmp/%{name}-%{version}-root
 Requires: coreutils, grep, httpd
-BuildRequires: httpd-devel
+BuildRequires: httpd-devel, make, gcc
 
 %description
 This Apache module provides support for the FastCGI protocol. FastCGI
