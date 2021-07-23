@@ -11,7 +11,7 @@
 Summary: Extensions for Tcl and Tk
 Name: tclx
 Version: %{major_ver}.0
-Release: 37%{?dist}
+Release: 38%{?dist}
 License: BSD
 URL: http://tclx.sourceforge.net/
 Source: http://downloads.sourceforge.net/%{name}/%{name}%{major_ver}.tar.bz2
@@ -98,6 +98,9 @@ echo '%{_libdir}/tcl%{tcl_version}/%{name}%{major_ver}' > $RPM_BUILD_ROOT%{_sysc
 %{_mandir}/man3/Keylist.3*
 
 %changelog
+* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 8.4.0-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
 * Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 8.4.0-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
 
