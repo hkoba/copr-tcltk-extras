@@ -3,7 +3,7 @@
 %{!?tcl_version: %global tcl_version %(echo 'puts $tcl_version' | tclsh)}
 %{!?tcl_sitearch: %global tcl_sitearch %{_libdir}/tcl%{tcl_version}}
 
-%define major_ver 8.4.1
+%define major_ver 8.4.1R
 %define upversion 8.5
 %define tcltk_ver 8.4.13
 #define for 8.4 is needed, tclx wasn't updated on higher version
@@ -14,8 +14,7 @@ Version: %{major_ver}
 Release: 38%{?dist}
 License: BSD
 URL: http://tclx.sourceforge.net/
-# Source: https://downloads.sourceforge.net/%{name}/%{name}%{major_ver}.tar.bz2
-Source: https://downloads.sourceforge.net/project/tclx/TclX/%{major_ver}/%{name}%{major_ver}.tar.bz2
+Source: https://downloads.sourceforge.net/%{name}/%{name}%{major_ver}.tar.bz2
 Requires: tcl%{?_isa} >= %{tcltk_ver}, tk%{?_isa} >= %{tcltk_ver}
 BuildRequires: make
 BuildRequires:  gcc
