@@ -3,7 +3,8 @@
 %{!?tcl_version: %global tcl_version %(echo 'puts $tcl_version' | tclsh)}
 %{!?tcl_sitearch: %global tcl_sitearch %{_libdir}/tcl%{tcl_version}}
 
-%define major_ver 8.4.1
+%define major_ver 8.4
+%define minor_suffix .1
 %define upversion 8.5
 %define tcltk_ver 8.4.13
 #define for 8.4 is needed, tclx wasn't updated on higher version
@@ -14,16 +15,14 @@ Version: %{major_ver}
 Release: 38%{?dist}
 License: BSD
 URL: http://tclx.sourceforge.net/
-Source: https://downloads.sourceforge.net/%{name}/%{name}%{major_ver}.tar.bz2
+Source: https://downloads.sourceforge.net/%{name}/%{name}%{major_ver}%{minor_suffix}.tar.bz2
 Requires: tcl%{?_isa} >= %{tcltk_ver}, tk%{?_isa} >= %{tcltk_ver}
 BuildRequires: make
 BuildRequires:  gcc
 BuildRequires: tcl-devel >= %{tcltk_ver}, tk-devel >= %{tcltk_ver}
 #BuildRequires: autoconf
 Patch1: tclx-%{major_ver}-varinit.patch
-Patch2: tclx-%{major_ver}-relid.patch
 Patch3: tclx-%{major_ver}-man.patch
-Patch4: tclx-%{major_ver}-tcl86.patch
 
 %description
 Extended Tcl (TclX) is a set of extensions to the Tcl programming language.
@@ -43,9 +42,7 @@ applications embedding tclx.
 %prep
 %setup -q -n tclx%{major_ver}
 %patch1 -p1 -b .1.varinit
-%patch2 -p1 -b .2.relid
 %patch3 -p1 -b .3.patch
-%patch4 -p1 -b .4.tcl86
 
 # patch2 touches tcl.m4
 
