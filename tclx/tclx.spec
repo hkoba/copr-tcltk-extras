@@ -12,7 +12,7 @@
 Summary: Extensions for Tcl and Tk
 Name: tclx
 Version: %{major_ver}
-Release: 38%{?dist}
+Release: 1%{?dist}
 License: BSD
 URL: http://tclx.sourceforge.net/
 Source: https://downloads.sourceforge.net/%{name}/%{name}%{major_ver}%{minor_suffix}.tar.bz2
