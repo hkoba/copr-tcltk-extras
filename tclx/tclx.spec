@@ -14,7 +14,7 @@ Version: %{major_ver}.0
 Release: 38%{?dist}
 License: BSD
 URL: http://tclx.sourceforge.net/
-Source: http://downloads.sourceforge.net/%{name}/%{name}%{major_ver}.tar.bz2
+Source: https://downloads.sourceforge.net/%{name}/%{name}%{major_ver}.tar.bz2
 Requires: tcl%{?_isa} >= %{tcltk_ver}, tk%{?_isa} >= %{tcltk_ver}
 BuildRequires: make
 BuildRequires:  gcc
