@@ -9,17 +9,17 @@
 %define tcltk_ver 8.4.13
 #define for 8.4 is needed, tclx wasn't updated on higher version
 
-Summary: Extensions for Tcl and Tk
+Summary: Extensions for Tcl
 Name: tclx
 Version: %{major_ver}
-Release: 1%{?dist}
+Release: 1hk1
 License: BSD
 URL: http://tclx.sourceforge.net/
 Source: https://downloads.sourceforge.net/%{name}/%{name}%{major_ver}%{minor_suffix}.tar.bz2
-Requires: tcl%{?_isa} >= %{tcltk_ver}, tk%{?_isa} >= %{tcltk_ver}
+Requires: tcl%{?_isa} >= %{tcltk_ver}
 BuildRequires: make
 BuildRequires:  gcc
-BuildRequires: tcl-devel >= %{tcltk_ver}, tk-devel >= %{tcltk_ver}
+BuildRequires: tcl-devel >= %{tcltk_ver}
 #BuildRequires: autoconf
 Patch1: tclx-%{major_ver}-varinit.patch
 Patch3: tclx-%{major_ver}-man.patch
@@ -48,11 +48,8 @@ applications embedding tclx.
 
 %build
 %configure \
-   --enable-tk=YES \
    --with-tclconfig=%{_libdir} \
-   --with-tkconfig=%{_libdir} \
    --with-tclinclude=%{_includedir} \
-   --with-tkinclude=%{_includedir} \
    --enable-gcc \
    --disable-threads \
    --enable-64bit \
@@ -95,6 +92,9 @@ echo '%{_libdir}/tcl%{tcl_version}/%{name}%{major_ver}' > $RPM_BUILD_ROOT%{_sysc
 %{_mandir}/man3/Keylist.3*
 
 %changelog
+* Mon Jan 17 2022 hkoba <buribullet@gmail.com> - 8.4.0-38hk1
+- Remove tk dependency (what required this?)
+
 * Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 8.4.0-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
 
