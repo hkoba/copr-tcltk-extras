@@ -11,7 +11,7 @@
 
 Summary: Extensions for Tcl
 Name: tclx
-Version: %{major_ver}
+Version: %{major_ver}%{minor_suffix}
 Release: 1hk1
 License: BSD
 URL: http://tclx.sourceforge.net/
