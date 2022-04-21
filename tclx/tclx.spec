@@ -77,7 +77,7 @@ echo '%{_libdir}/tcl%{tcl_version}/%{name}%{major_ver}' > $RPM_BUILD_ROOT%{_sysc
 
 %files
 %doc ChangeLog README
-%{_libdir}/tcl8.6/tclx8.4/
+%{_libdir}/tcl%{tcl_version}/tclx8.4/
 %{_sysconfdir}/ld.so.conf.d/%{name}-%{_arch}.conf
 %exclude %{_mandir}/man3/CmdWrite.*
 %exclude %{_mandir}/man3/Handles.*
@@ -92,6 +92,9 @@ echo '%{_libdir}/tcl%{tcl_version}/%{name}%{major_ver}' > $RPM_BUILD_ROOT%{_sysc
 %{_mandir}/man3/Keylist.3*
 
 %changelog
+* Thu Apr 21 2022 hkoba <buribullet@gmail.com> - 8.4.0-38hk2
+- Fix tcl8.6 hardcoding for epel7
+
 * Mon Jan 17 2022 hkoba <buribullet@gmail.com> - 8.4.0-38hk1
 - Remove tk dependency (what required this?)
 
