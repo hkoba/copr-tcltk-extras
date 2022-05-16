@@ -56,7 +56,8 @@ find $RPM_BUILD_ROOT -name '*.a' -delete
 
 ## fix standard rpath
 chrpath --delete \
-    $RPM_BUILD_ROOT%{_bindir}/mlterm \
+    $RPM_BUILD_ROOT%{_bindir}/* \
+    $RPM_BUILD_ROOT%{_libdir}/mlterm/* \
     $RPM_BUILD_ROOT%{_libexecdir}/mlterm/*
 
 SRCDIR=$RPM_BUILD_DIR/%{name}-%{_mlterm_rel}
