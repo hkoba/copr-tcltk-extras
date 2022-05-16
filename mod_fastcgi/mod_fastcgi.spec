@@ -11,7 +11,7 @@
 Summary: Apache module for the FastCGI protocol.
 Name: mod_fastcgi
 Version: 2.4.7.1
-Release: 2h3
+Release: 2h4
 Group: System Environment/Daemons
 License: Original (See LICENSE.TERMS)
 URL: https://github.com/FastCGI-Archives/mod_fastcgi
@@ -68,5 +68,5 @@ rm -rf $RPM_BUILD_ROOT
 %attr(0700,apache,apache) %{ipcdir}/*
 
 %changelog
-* Mon May 16 hkoba <buribullet@gmail.com> - 2.4.7.1-2h3
+* Mon May 16 2021 Hiroaki Kobayashi <buribullet@gmail.com> - 2.4.7.1-2h4
 - lastconf -> conf
