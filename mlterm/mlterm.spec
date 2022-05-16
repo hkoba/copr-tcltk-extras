@@ -6,7 +6,7 @@
 Summary:       MultiLingual TERMinal emulator on X
 Name:          mlterm
 Version:       %{_version}
-Release:       hk%{?_dist}
+Release:       hk2
 License:       BSD and LGPLv2+ and MIT
 Group:         User Interface/X
 URL:           https://github.com/arakiken/mlterm
@@ -15,7 +15,7 @@ BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: make, gcc
 BuildRequires: gtk3-devel gtk2-devel libssh2-devel libXft-devel gettext
 BuildRequires: gtk2-devel libssh2-devel
-#BuildRequires: chrpath
+BuildRequires: chrpath
 BuildRequires: desktop-file-utils
 Requires(postun): /sbin/ldconfig
 Requires(post): /sbin/ldconfig
@@ -27,7 +27,7 @@ scratch, which supports various charactersets and encodings
 in the world.  It also supports various unique feature such as
 anti-alias using FreeType, multiple windows, scroll-bar API,
 scroll by mouse wheel, automatic selection of encoding,
-and so on. Multiple xims are also supported. 
+and so on. Multiple xims are also supported.
 You can dynamically change various xims.
 
 %prep
@@ -55,9 +55,9 @@ find $RPM_BUILD_ROOT -name '*.a' -delete
 #rm $RPM_BUILD_ROOT%{_libdir}/libkik.so $RPM_BUILD_ROOT%{_libdir}/libmkf.so
 
 ## fix standard rpath
-# chrpath --delete \
-#     $RPM_BUILD_ROOT%{_bindir}/mlterm \
-#     $RPM_BUILD_ROOT%{_libexecdir}/*
+chrpath --delete \
+    $RPM_BUILD_ROOT%{_bindir}/mlterm \
+    $RPM_BUILD_ROOT%{_libexecdir}/*
 
 SRCDIR=$RPM_BUILD_DIR/%{name}-%{_mlterm_rel}
 
@@ -135,7 +135,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/mlterm/*
 
 %changelog
-* Fri May 14 2021 Hiroaki Kobayashi <buribullet@gmail.com> - 4.9.1
+* Mon May 16 2021 Hiroaki Kobayashi <buribullet@gmail.com> - 3.9.1-hk2
+- chrpath
+
+* Fri May 14 2021 Hiroaki Kobayashi <buribullet@gmail.com> - 3.9.1
 - for copr
 
 * Mon Apr 19 2010 Muayyad Saleh Alsadi <alsadi@ojuba.org> - 3.0.0-2
