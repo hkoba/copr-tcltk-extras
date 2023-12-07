@@ -1,4 +1,4 @@
-%global commit 96e3e296691ec1a4fceaac7f9796438bea936b35
+%global commit ae2e673a6abcb5c82d5b4fd426cb310993ede4c8
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %global _github_owner hkoba
@@ -16,7 +16,7 @@
 Summary: HTML widget for Tcl/Tk
 Name: tkhtml3
 Version: %{tkhtml_major}.0
-Release: 7hk
+Release: 8hk
 Group: Development/Languages
 License: LGPL2
 Source0: https://github.com/%{_github_owner}/%{_github_project}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
