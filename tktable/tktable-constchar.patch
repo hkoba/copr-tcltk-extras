@@ -1,0 +1,80 @@
+--- generic/tkTable.h.orig	2024-10-08 11:37:54.928739948 +0900
++++ generic/tkTable.h	2024-10-08 11:38:26.719837569 +0900
+@@ -526,7 +526,7 @@
+ extern int	TableOptionBdSet(ClientData clientData,
+ 			Tcl_Interp *interp, Tk_Window tkwin,
+ 			CONST84 char *value, char *widgRec, int offset);
+-extern char *	TableOptionBdGet(ClientData clientData,
++extern const char *	TableOptionBdGet(ClientData clientData,
+ 			Tk_Window tkwin, char *widgRec, int offset,
+ 			Tcl_FreeProc **freeProcPtr);
+ extern int	TableTagConfigureBd(Table *tablePtr,
+@@ -535,7 +535,7 @@
+ 			Tcl_Interp *interp,
+ 			Tk_Window unused, CONST84 char *value,
+ 			char *widgRec, int offset);
+-extern char *	Cmd_OptionGet(ClientData clientData,
++extern const char *	Cmd_OptionGet(ClientData clientData,
+ 			Tk_Window unused, char *widgRec,
+ 			int offset, Tcl_FreeProc **freeProcPtr);
+ 
+--- generic/tkTableTag.c.orig	2024-10-08 11:38:13.342796493 +0900
++++ generic/tkTableTag.c	2024-10-08 11:42:05.678491172 +0900
+@@ -22,7 +22,7 @@
+ static int	TableOptionReliefSet _ANSI_ARGS_((ClientData clientData,
+ 			Tcl_Interp *interp, Tk_Window tkwin,
+ 			CONST84 char *value, char *widgRec, int offset));
+-static char *	TableOptionReliefGet _ANSI_ARGS_((ClientData clientData,
++static const char *	TableOptionReliefGet _ANSI_ARGS_((ClientData clientData,
+ 			Tk_Window tkwin, char *widgRec, int offset,
+ 			Tcl_FreeProc **freeProcPtr));
+ 
+@@ -1340,7 +1340,7 @@
+  *----------------------------------------------------------------------
+  */
+ 
+-static char *
++static const char *
+ TableOptionReliefGet(clientData, tkwin, widgRec, offset, freeProcPtr)
+     ClientData clientData;		/* Type of struct being set. */
+     Tk_Window tkwin;			/* Window containing canvas widget. */
+--- generic/tkTableUtil.c.orig	2024-10-08 11:42:52.282629723 +0900
++++ generic/tkTableUtil.c	2024-10-08 11:43:39.734770795 +0900
+@@ -169,7 +169,7 @@
+  *----------------------------------------------------------------------
+  */
+ 
+-char *
++const char *
+ TableOptionBdGet(clientData, tkwin, widgRec, offset, freeProcPtr)
+     ClientData clientData;		/* Type of struct being set. */
+     Tk_Window tkwin;			/* Window containing canvas widget. */
+@@ -329,7 +329,7 @@
+  *----------------------------------------------------------------------
+  */
+ 
+-char *
++const char *
+ Cmd_OptionGet(ClientData clientData, Tk_Window unused,
+ 	      char *widgRec, int offset, Tcl_FreeProc **freeProcPtr)
+ {
+--- generic/tkTableWin.c.orig	2024-10-08 11:31:13.208506467 +0900
++++ generic/tkTableWin.c	2024-10-08 11:41:47.666437620 +0900
+@@ -17,7 +17,7 @@
+ static int	StickyParseProc _ANSI_ARGS_((ClientData clientData,
+ 			Tcl_Interp *interp, Tk_Window tkwin,
+ 			CONST84 char *value, char *widgRec, int offset));
+-static char *	StickyPrintProc _ANSI_ARGS_((ClientData clientData,
++static const char *	StickyPrintProc _ANSI_ARGS_((ClientData clientData,
+ 			Tk_Window tkwin, char *widgRec, int offset,
+ 			Tcl_FreeProc **freeProcPtr));
+ 
+@@ -117,7 +117,7 @@
+  *
+  *----------------------------------------------------------------------
+  */
+-static char *
++static const char *
+ StickyPrintProc(clientData, tkwin, widgRec, offset, freeProcPtr)
+     ClientData clientData;		/* Ignored. */
+     Tk_Window tkwin;			/* Window for text widget. */

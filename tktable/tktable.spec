@@ -12,6 +12,7 @@ Release: 2hk2
 License: TCL
 Group: Development/Libraries
 Source: https://download.sourceforge.net/tktable/Tktable%{version}.tar.gz
+Patch1: tktable-constchar.patch
 URL: http://tktable.sourceforge.net/
 BuildRequires: /usr/bin/gcc, tk-devel >= %{tcl_version}, libXt-devel
 Requires: tk >= %{tcl_version}
@@ -31,6 +32,8 @@ Unicode support with Tk 8.1 and above.
 %setup -q -n Tktable%version
 # Silence a rpmlint warning
 chmod -x ChangeLog
+
+%patch -P 1
 
 %build
 # fix problem with the tcl.m4 file that came with earlier versions
