@@ -1,5 +1,3 @@
-%global debug_package %{nil}
-
 %global tcl_version 8.6
 %global _tcl_libdir %{_libdir}/tcl%{tcl_version}
 %global _pure_package_name tdbc
@@ -7,14 +5,13 @@
 
 Name:       tcl-%{_pure_package_name}
 Version:    1.1.10
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Tcl DataBase Connectivity
 URL:        https://tdbc.tcl.tk/
 License:    TCL
 Source0:    https://sourceforge.net/projects/tcl/files/Tcl/8.6.16/tdbc1.1.10.tar.gz
 BuildRequires: make, gcc, tcl-devel >= %{tcl_version}
 Requires: tcl(abi) >= %{tcl_version}
-
 
 %description
 TDBC is an acronym for Tcl Database Connectivity, an interface
@@ -31,7 +28,12 @@ make %{?_smp_mflags}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%make_install
+
+%make_install INSTALL_LIBRARY="%{__install} -p -m 755"
+# INSTALL_LIBRARY='${INSTALL} -m 644' is BAD for find-debuginfo!
+# See https://docs.fedoraproject.org/en-US/packaging-guidelines/Debuginfo/
+# find-debuginfo.sh processes only files that are executable when it’s run
+
 
 %files
 %{_tcl_libdir}/%{_pure_package_name}%{version}/*
@@ -42,9 +44,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/mann/*
 
 %changelog
-* Sat Mar 29 12:24:55 JST 2025 Hiroaki Kobayashi <buribullet@gmail.com> - 1.1.10-2
-- Disable debug_package temporarily
-  to avoid `Empty %files file /builddir/build/BUILD/tdbc1.1.10/debugsourcefiles.list`
+* Sat Mar 29 18:58:45 JST 2025 Hiroaki Kobayashi <buribullet@gmail.com> - 1.1.10-3
+- Build with debuginfo
 
 * Sat Mar 29 12:17:00 JST 2025 Hiroaki Kobayashi <buribullet@gmail.com> - 1.1.10-1
 - Initial build
