@@ -12,6 +12,7 @@ URL:        https://tdbc.tcl.tk/
 License:    TCL
 Source0:    https://sourceforge.net/projects/tcl/files/Tcl/8.6.16/%{_pure_package_name}%{version}.tar.gz
 BuildRequires: make, gcc, tcl-devel >= %{tcl_version}
+BuildRequires: tcl-tdbc
 BuildRequires: postgresql-private-devel, postgresql-private-libs
 Requires: tcl(abi) >= %{tcl_version}
 
