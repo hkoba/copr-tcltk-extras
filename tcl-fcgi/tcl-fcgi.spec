@@ -1,5 +1,7 @@
 %if "%{dist}" == ".el7"
 %global tcl_version 8.5
+%elif 0%{?fedora} >= 42
+%global tcl_version 9.0
 %else
 %global tcl_version 8.6
 %endif
@@ -8,7 +10,7 @@
 %global version	 0.4
 %global _micro_version 0
 
-Summary:   FastCGI interface for Tcl 8
+Summary:   FastCGI interface for Tcl
 Name:      tcl-fcgi
 Version:   %{version}
 Group:     Development/Languages/Tcl
@@ -31,7 +33,7 @@ this package provides only a Tcl source version which is written in 100% pure Tc
 %prep
 
 %setup -n fcgi.tcl-%{version}
-%patch0 -p0
+%patch 0 -p0
 
 %build
 
