@@ -1,11 +1,16 @@
+%if 0%{?fedora} >= 42
+%global tcl_version 9.0
+%else
 %global tcl_version 8.6
+%endif
+
 %global _tcl_libdir %{_libdir}/tcl%{tcl_version}
 %global _pure_package_name tdbc
 
 
 Name:       tcl-%{_pure_package_name}
 Version:    1.1.10
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    Tcl DataBase Connectivity
 URL:        https://tdbc.tcl.tk/
 License:    TCL
@@ -44,6 +49,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/mann/*
 
 %changelog
+* Mon Apr  7 19:01:31 JST 2025 Hiroaki Kobayashi <buribullet@gmail.com> - 1.1.10-4
+- Fedora42(Tcl9)
+
 * Sat Mar 29 18:58:45 JST 2025 Hiroaki Kobayashi <buribullet@gmail.com> - 1.1.10-3
 - Build with debuginfo
 
