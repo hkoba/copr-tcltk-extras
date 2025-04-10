@@ -17,7 +17,7 @@
 Summary: HTML widget for Tcl/Tk
 Name: tkhtml3
 Version: %{tkhtml_major}.0
-Release: 8hk
+Release: 9hk
 Group: Development/Languages
 License: LGPL2
 Source0: https://github.com/%{_github_owner}/%{_github_project}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
