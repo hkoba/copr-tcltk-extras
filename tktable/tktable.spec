@@ -1,18 +1,18 @@
-%if "%{dist}" == ".el7"
-%global tcl_version 8.5
+%if 0%{?fedora} >= 42
+%global tcl_version 9.0
 %else
 %global tcl_version 8.6
 %endif
+
 %{!?tcl_sitearch: %global tcl_sitearch %{_libdir}/tcl%{tcl_version}}
 
 Summary: Table/matrix widget extension to Tcl/Tk
 Name: tktable
-Version: 2.10
-Release: 2hk2
+Version: 2.12
+Release: 1hk1
 License: TCL
 Group: Development/Libraries
-Source: https://download.sourceforge.net/tktable/Tktable%{version}.tar.gz
-Patch1: tktable-constchar.patch
+Source: https://chiselapp.com/user/bohagan/repository/TkTable/uv/tktable-%{version}.tar.gz
 URL: http://tktable.sourceforge.net/
 BuildRequires: /usr/bin/gcc, tk-devel >= %{tcl_version}, libXt-devel
 Requires: tk >= %{tcl_version}
@@ -29,11 +29,9 @@ Unicode support with Tk 8.1 and above.
 
 %prep
 
-%setup -q -n Tktable%version
+%setup -q
 # Silence a rpmlint warning
 chmod -x ChangeLog
-
-%patch -P 1
 
 %build
 # fix problem with the tcl.m4 file that came with earlier versions
@@ -45,21 +43,16 @@ make %{?_smp_mflags}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-DIRECTORY=$RPM_BUILD_ROOT%tcl_sitearch/%name%version
-install -d $DIRECTORY
-install -p libTktable%{version}.so $DIRECTORY/
-install -m 644 -p pkgIndex.tcl library/tkTable.tcl $DIRECTORY
-install -d $RPM_BUILD_ROOT%_mandir/mann
-install -m 644 -p doc/tkTable.n $RPM_BUILD_ROOT%_mandir/mann
+%make_install INSTALL_LIBRARY="%{__install} -p -m 755"
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root)
-%doc ChangeLog README.txt README.blt license.txt doc/tkTable.html
+%doc ChangeLog README.txt license.txt doc/tkTable.html
 %_mandir/mann/tkTable.*
-%{tcl_sitearch}/%name%version
+%{tcl_sitearch}/Tktable*/*
 
 
 %changelog
