@@ -1,14 +1,15 @@
-%global commit ae2e673a6abcb5c82d5b4fd426cb310993ede4c8
+%global commit b9bd4c9cc989294e8bc46afed0251c937ecb8ef7
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %global _github_owner hkoba
 %global _github_project tkhtml3
 
-%if "%{dist}" == ".el7"
-%global tcl_version 8.5
+%if 0%{?fedora} >= 42
+%global tcl_version 9.0
 %else
 %global tcl_version 8.6
 %endif
+
 %global tcl_libdir %{_libdir}/tcl%{tcl_version}
 %global tkhtml_major 3
 %global pure_name tkhtml
