@@ -3,26 +3,22 @@
 %{!?tcl_version: %global tcl_version %(echo 'puts $tcl_version' | tclsh)}
 %{!?tcl_sitearch: %global tcl_sitearch %{_libdir}/tcl%{tcl_version}}
 
-%define major_ver 8.4
-%define minor_suffix .1
-%define upversion 8.5
-%define tcltk_ver 8.4.13
-#define for 8.4 is needed, tclx wasn't updated on higher version
+%define major_ver 9.0
+%define minor_suffix .0
+%define alpha -pre-alpha
 
 Summary: Extensions for Tcl
 Name: tclx
 Version: %{major_ver}%{minor_suffix}
 Release: 1hk1
 License: BSD
-URL: http://tclx.sourceforge.net/
-Source: https://downloads.sourceforge.net/%{name}/%{name}%{major_ver}%{minor_suffix}.tar.bz2
-Requires: tcl%{?_isa} >= %{tcltk_ver}
+URL: https://github.com/tcltk-depot
+Source: https://github.com/tcltk-depot/tclx/releases/download/v%{version}%{alpha}/%{name}-%{version}%{alpha}.tar.gz
+Requires: tcl%{?_isa} >= %{tcl_version}
 BuildRequires: make
 BuildRequires:  gcc
-BuildRequires: tcl-devel >= %{tcltk_ver}
-#BuildRequires: autoconf
-Patch1: tclx-%{major_ver}-varinit.patch
-Patch3: tclx-%{major_ver}-man.patch
+BuildRequires: tcl-devel >= %{tcl_version}
+BuildRequires: autoconf
 
 %description
 Extended Tcl (TclX) is a set of extensions to the Tcl programming language.
@@ -40,13 +36,11 @@ This package contains the tclx development files needed for building
 applications embedding tclx.
 
 %prep
-%setup -q -n tclx%{major_ver}
-%patch1 -p1 -b .1.varinit
-%patch3 -p1 -b .3.patch
-
-# patch2 touches tcl.m4
+%setup -q -n %{name}-%{version}%{alpha}
 
 %build
+autoconf
+
 %configure \
    --with-tclconfig=%{_libdir} \
    --with-tclinclude=%{_includedir} \
@@ -76,20 +70,13 @@ echo '%{_libdir}/tcl%{tcl_version}/%{name}%{major_ver}' > $RPM_BUILD_ROOT%{_sysc
 %postun -p /sbin/ldconfig
 
 %files
-%doc ChangeLog README
-%{_libdir}/tcl%{tcl_version}/tclx8.4/
+%doc ChangeLog README.*
+%{_libdir}/tcl%{tcl_version}/tclx%{major_ver}/
 %{_sysconfdir}/ld.so.conf.d/%{name}-%{_arch}.conf
-%exclude %{_mandir}/man3/CmdWrite.*
-%exclude %{_mandir}/man3/Handles.*
-%exclude %{_mandir}/man3/TclXInit.3*
-%exclude %{_mandir}/man3/Keylist.3*
 %{_mandir}/mann/*
-%{_mandir}/man3/*
 
 %files devel
 %{_includedir}/*
-%{_mandir}/man3/TclXInit.3*
-%{_mandir}/man3/Keylist.3*
 
 %changelog
 * Thu Apr 21 2022 hkoba <buribullet@gmail.com> - 8.4.0-38hk2
