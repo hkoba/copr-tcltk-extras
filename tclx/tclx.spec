@@ -1,6 +1,11 @@
 %bcond_without wcheck
 
-%{!?tcl_version: %global tcl_version %(echo 'puts $tcl_version' | tclsh)}
+%if 0%{?fedora} >= 42
+%global tcl_version 9.0
+%else
+%global tcl_version 8.6
+%endif
+
 %{!?tcl_sitearch: %global tcl_sitearch %{_libdir}/tcl%{tcl_version}}
 
 %define major_ver 9.0
@@ -16,7 +21,7 @@ URL: https://github.com/tcltk-depot
 Source: https://github.com/tcltk-depot/tclx/releases/download/v%{version}%{alpha}/%{name}%{major_ver}.tar.bz2
 Requires: tcl%{?_isa} >= %{tcl_version}
 BuildRequires: make
-BuildRequires:  gcc
+BuildRequires: gcc
 BuildRequires: tcl-devel >= %{tcl_version}
 BuildRequires: autoconf
 
