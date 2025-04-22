@@ -12,7 +12,7 @@ Release:        1%{?dist}
 Summary:        Tcl Thread extension
 License:        TCL
 URL:            http://tcl.sourceforge.net
-Source0:        http://prdownloads.sourceforge.net/tcl/thread%{version}.tar.gz
+Source0:        https://sourceforge.net/projects/tcl/files/Thread%20Extension/%{version}/thread%{version}.tar.gz
 Patch0:         tcl-thread-gdbm-lib64.patch
 Patch1:         tcl-thread-gdbm-tcl9.patch
 
