@@ -64,10 +64,9 @@ sed -e 's|-L$openssldir/lib|-L%{_libdir}/openssl11|g' \
 %check
 
 # TODO: badssl.test doesn't work on copr build site
-SKIP_FILE="badssl.test tlsIO.test"
-SKIP_TEST="Ciphers_Protocol_Specific-4.[346]"
-
-make test TESTFLAGS='-singleproc 1 -notfile "$SKIP_FILE" -skip "$SKIP_TEST"'
+%define SKIP_FILE badssl.test tlsIO.test
+%define SKIP_TEST Ciphers_Protocol_Specific-4.[346]
+make test TESTFLAGS='-singleproc 1 -notfile "%{SKIP_FILE}" -skip "%{SKIP_TEST}"'
 
 %install
 %make_install libdir=%{tcl_sitearch} INSTALL_LIBRARY="%{__install} -p -m 755"
