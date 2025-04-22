@@ -1,8 +1,5 @@
-%if "%{dist}" == ".el7"
-%global tcl_version 8.5
-%else
-%global tcl_version 8.6
-%endif
+%{!?tcl_version: %global tcl_version %((echo '8.5'; echo 'puts $tcl_version' | tclsh 2>/dev/null) | tail -1)}
+
 %global _tcldir /usr/lib64/tcl%{tcl_version}
 
 %global name tcl-unixsockets
@@ -15,6 +12,7 @@ Version: %{version}
 Release: %{release}
 URL: https://sourceforge.net/projects/tcl-unixsockets/
 Source0: ftp://tcl-unixsockets.sourceforge.net/pub/tcl-unixsockets/%{name}_%{version}.tar.gz
+Patch0: tcl-unixsockets-tcl9.patch
 License: BSD
 Group: System/Libraries
 # Automatically added by buildreq on Thu Apr 26 2001
@@ -28,6 +26,7 @@ This package contains unix_sockets for tcl.
  
 %prep
 %setup -q -n %{name}_%{version}
+%patch 0 -p1
 
 %build
 

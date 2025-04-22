@@ -1,0 +1,64 @@
+--- tcl-unixsockets_0.2/generic/main.c.orig	2025-04-22 16:13:52.888741999 +0900
++++ tcl-unixsockets_0.2/generic/main.c	2025-04-22 16:14:33.839973049 +0900
+@@ -13,7 +13,7 @@
+ 
+ static Tcl_ChannelType unix_socket_channel_type = {
+ 	"unix_socket",
+-	TCL_CHANNEL_VERSION_2,
++	TCL_CHANNEL_VERSION_5,
+ 	closeProc,
+ 	inputProc,
+ 	outputProc,
+@@ -222,12 +222,12 @@
+ 	ClientData		cdata;
+ 	Tcl_Interp *	interp;
+ 	int				objc;
+-	Tcl_Obj *CONST	objv[];
++	Tcl_Obj *const	objv[];
+ {
+ 	int					server_sockfd, server_len;
+ 	struct sockaddr_un	server_address;
+ 	char *				path;
+-	int					path_len;
++	Tcl_Size			path_len;
+ 	uds_state *			state;
+ 	char				channel_name[64];
+ 	Tcl_Channel			channel;
+@@ -276,13 +276,14 @@
+ 	ClientData		cdata;
+ 	Tcl_Interp *	interp;
+ 	int				objc;
+-	Tcl_Obj *CONST	objv[];
++	Tcl_Obj *const	objv[];
+ {
+ 	Tcl_Channel			channel;
+ 	int					fd;
+ 	char				channel_name[64];
+ 	char *				path;
+-	int					path_len, result;
++	Tcl_Size			path_len;
++	int					result;
+ 	struct sockaddr_un	address;
+ 	int					sockaddr_len;
+ 	uds_state *			con;
+@@ -329,7 +330,7 @@
+ //>>>
+ int Unix_sockets_Init(Tcl_Interp *interp) //<<<
+ {
+-	if (Tcl_InitStubs(interp, "8.2", 0) == NULL)
++	if (Tcl_InitStubs(interp, "8.2-", 0) == NULL)
+ 		return TCL_ERROR;
+ 
+ 	NEW_CMD("unix_sockets::listen", glue_listen);
+--- tcl-unixsockets_0.2/generic/uds.h.orig	2025-04-22 16:17:37.425008871 +0900
++++ tcl-unixsockets_0.2/generic/uds.h	2025-04-22 16:18:06.835174809 +0900
+@@ -8,7 +8,7 @@
+ static void watchProc(ClientData cdata, int mask);
+ static int getHandleProc(ClientData cdata, int direction, ClientData *handlePtr);
+ static void accept_dispatcher(ClientData cdata, int mask);
+-static int glue_listen(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *CONST objv[]);
+-static int glue_connect(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *CONST objv[]);
++static int glue_listen(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]);
++static int glue_connect(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]);
+ 
+ #endif
