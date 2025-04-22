@@ -13,7 +13,7 @@ Version: %{major_ver}%{minor_suffix}
 Release: 1hk1
 License: BSD
 URL: https://github.com/tcltk-depot
-Source: https://github.com/tcltk-depot/tclx/releases/download/v%{version}%{alpha}/%{name}-%{version}%{alpha}.tar.gz
+Source: https://github.com/tcltk-depot/tclx/releases/download/v%{version}%{alpha}/%{name}%{major_ver}.tar.bz2
 Requires: tcl%{?_isa} >= %{tcl_version}
 BuildRequires: make
 BuildRequires: gcc
@@ -36,7 +36,7 @@ This package contains the tclx development files needed for building
 applications embedding tclx.
 
 %prep
-%setup -q -n %{name}-%{version}%{alpha}
+%setup -q -n %{name}%{major_ver}
 
 %build
 autoconf
