@@ -6,7 +6,7 @@ Name: tklib
 Version: 0.9
 Release: 1%{?dist}
 License: TCL
-Source: http://downloads.sourceforge.net/tcllib/tklib-0.9.tar.bz2
+Source: https://sourceforge.net/projects/tcllib/files/tklib/%{version}/tklib-%{version}.tar.bz2
 URL: http://tcllib.sourceforge.net/
 BuildArch: noarch
 Requires: tcl(abi) >= 8.6 tk tcllib
