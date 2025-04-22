@@ -1,0 +1,10 @@
+--- aclocal.m4.orig	2025-04-11 16:42:15.235683805 +0900
++++ aclocal.m4	2025-04-11 17:25:01.479939451 +0900
+@@ -44,6 +44,7 @@
+                 `ls -d ${prefix}/lib 2>/dev/null`\
+                 `ls -d /usr/local/lib 2>/dev/null`\
+                 `ls -d /usr/lib 2>/dev/null`\
++                `ls -d /usr/lib64 2>/dev/null`\
+                 `ls -d /usr/lib/x86_64-linux-gnu 2>/dev/null` ; do
+             if test x"`ls $i/libgdbm* 2>/dev/null`" != x ; then
+                 glibdir=`(cd $i; pwd)`
