@@ -1,0 +1,20 @@
+--- tcltls-2.0b1/tests/tlsIO.test.orig	2025-02-09 06:05:14.000000000 +0900
++++ tcltls-2.0b1/tests/tlsIO.test	2025-04-17 14:38:00.774261707 +0900
+@@ -1921,10 +1921,17 @@
+     set failed 0
+     after 5000 set failed 1
+ 
++    set timer [after 5000 "set x timed_out"]
+     vwait x
++    if {!$failed} {
++	vwait failed
++    }
+     set x
+ } {accepted socket was not inherited}
+ 
++removeFile script1
++removeFile script2
++
+ test tlsIO-13.1 {Testing use of shared socket between two threads} \
+ 	{socket testthread} {
+     # HOBBS: never tested
