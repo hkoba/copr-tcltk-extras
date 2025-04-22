@@ -23,7 +23,7 @@ Patch0:         tcltls-2.0b1-tlsIOtest.patch
 
 BuildRequires:  make
 %if 0%{?fedora} || 0%{?rhel} >= 8
-BuildRequires:  openssl-devel
+BuildRequires:  openssl openssl-devel
 %else
 BuildRequires:  openssl11-devel
 %endif
