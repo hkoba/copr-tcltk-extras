@@ -21,8 +21,8 @@ Source0: https://www.sqlite.org/%{year}/sqlite-src-%{realver}.zip
 Source1: https://www.sqlite.org/%{year}/sqlite-doc-%{docver}.zip
 Source2: https://www.sqlite.org/%{year}/sqlite-autoconf-%{realver}.tar.gz
 # Support a system-wide lemon template
-Patch1: sqlite-3.6.23-lemon-system-template.patch
-Patch2: sqlite-3.49.0-fix-lemon-missing-cflags.patch
+Patch1: https://src.fedoraproject.org/rpms/sqlite/raw/rawhide/f/sqlite-3.6.23-lemon-system-template.patch
+Patch2: https://src.fedoraproject.org/rpms/sqlite/raw/rawhide/f/sqlite-3.49.0-fix-lemon-missing-cflags.patch
 
 BuildRequires: make
 BuildRequires: gcc gcc-c++
