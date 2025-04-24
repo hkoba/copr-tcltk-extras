@@ -62,3 +62,75 @@
 +static int glue_connect(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]);
  
  #endif
+--- tcl-unixsockets_0.2/generic/main.c.orig	2025-04-24 16:31:13.909793370 +0900
++++ tcl-unixsockets_0.2/generic/main.c	2025-04-24 16:31:18.732822672 +0900
+@@ -328,7 +328,7 @@
+ }
+ 
+ //>>>
+-int Unix_sockets_Init(Tcl_Interp *interp) //<<<
++int unix_sockets_Init(Tcl_Interp *interp) //<<<
+ {
+ 	if (Tcl_InitStubs(interp, "8.2-", 0) == NULL)
+ 		return TCL_ERROR;
+--- tcl-unixsockets_0.2/generic/main.c.orig	2025-04-24 18:48:25.142749388 +0900
++++ tcl-unixsockets_0.2/generic/main.c	2025-04-24 18:48:38.253827057 +0900
+@@ -14,7 +14,7 @@
+ static Tcl_ChannelType unix_socket_channel_type = {
+ 	"unix_socket",
+ 	TCL_CHANNEL_VERSION_5,
+-	closeProc,
++	NULL, /* Not used any more*/
+ 	inputProc,
+ 	outputProc,
+ 	NULL,	//seekProc				// NULLable
+@@ -22,7 +22,7 @@
+ 	NULL,	//getOptionProc			// NULLable
+ 	watchProc,
+ 	getHandleProc,
+-	NULL,	//close2Proc			// NULLable
++	close2Proc,
+ 	blockModeProc,					// NULLable
+ 	NULL,	//flushProc				// NULLable
+ 	NULL,	//handlerProc			// NULLable
+@@ -70,6 +70,29 @@
+ }
+ 
+ //>>>
++
++static int close2Proc(ClientData cdata, Tcl_Interp *interp, int flags) //<<<
++{
++    uds_state *	con = (uds_state *)cdata;
++    int readError = 0;
++    int writeError = 0;
++
++    /*
++     * Shutdown the OS socket handle.
++     */
++    if ((flags & (TCL_CLOSE_READ|TCL_CLOSE_WRITE)) == 0) {
++       return closeProc(cdata, NULL);
++    }
++    if ((flags & TCL_CLOSE_READ) && (shutdown(con->fd, SHUT_RD) < 0)) {
++       readError = errno;
++    }
++    if ((flags & TCL_CLOSE_WRITE) && (shutdown(con->fd, SHUT_WR) < 0)) {
++       writeError = errno;
++    }
++    return (readError != 0) ? readError : writeError;
++}
++//>>>
++
+ static int inputProc(cdata, buf, bufSize, errorCodePtr) //<<<
+ 	ClientData	cdata;
+ 	char		*buf;
+--- tcl-unixsockets_0.2/generic/uds.h.orig	2025-04-24 18:49:19.013068513 +0900
++++ tcl-unixsockets_0.2/generic/uds.h	2025-04-24 18:49:34.407159712 +0900
+@@ -1,7 +1,7 @@
+ #ifndef _UDS_H
+ #define _UDS_H
+ 
+-static int closeProc(ClientData cdata, Tcl_Interp *interp);
++static int close2Proc(ClientData cdata, Tcl_Interp *interp, int flags);
+ static int inputProc(ClientData cdata, char *buf, int bufSize, int *errorCodePtr);
+ static int outputProc(ClientData cdata, const char *buf, int toWrite, int *errorCodePtr);
+ static int blockModeProc(ClientData cdata, int mode);

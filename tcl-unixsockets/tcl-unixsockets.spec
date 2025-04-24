@@ -4,7 +4,7 @@
 
 %global name tcl-unixsockets
 %global version 0.2
-%global release 1h
+%global release 3h
 
 Summary: unix_sockets for Tcl
 Name: %{name}
@@ -36,6 +36,9 @@ autoreconf -fvi
 
 make
 
+%check
+make test
+
 %install
 rm -rf $RPM_BUILD_ROOT
 make DESTDIR="$RPM_BUILD_ROOT" install \
@@ -49,5 +52,9 @@ make DESTDIR="$RPM_BUILD_ROOT" install \
 
  
 %changelog
+* Thu Apr 24 16:32:05 JST 2025 KOBAYASHI Hiroaki <hkoba@ssri.com> - 2.1.0-3h
+- Rename stub entry to unix_sockets_Init (for Tcl9)
+- Implement close2Proc for TCL_CHANNEL_VERSION_5
+
 * Tue Aug  2 2011 KOBAYASHI Hiroaki <hkoba@ssri.co.jp> - 2.1.0-2h
 - Init
