@@ -1,0 +1,3 @@
+[submodule "expect/fedora"]
+	path = expect/fedora
+	url = https://src.fedoraproject.org/rpms/expect.git
