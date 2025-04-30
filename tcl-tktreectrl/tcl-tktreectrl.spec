@@ -19,6 +19,7 @@ Provides:	tk-%{realname} = %{version}-%{release}
 BuildRequires: make
 BuildRequires:  gcc
 BuildRequires:	tk-devel
+BuildRequires: p7zip
 Requires:	tcl(abi) >= %{tcl_version} tk
 
 
