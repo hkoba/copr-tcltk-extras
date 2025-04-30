@@ -1,0 +1,339 @@
+--- treectrl-2.4.2/generic/qebind.c.orig	2025-04-18 16:08:34.903851775 +0900
++++ treectrl-2.4.2/generic/qebind.c	2025-04-18 16:09:34.527970033 +0900
+@@ -2193,7 +2193,8 @@
+ 		case 1: /* event */
+ 		{
+ 			char *eventName, *command;
+-			int id, length;
++			int id;
++                        Tcl_Size length;
+ 			EventInfo *eiPtr;
+ 			Tcl_HashEntry *hPtr;
+ 
+--- treectrl-2.4.2/generic/tkTreeColumn.c.orig	2025-04-18 16:10:06.949144143 +0900
++++ treectrl-2.4.2/generic/tkTreeColumn.c	2025-04-18 16:12:48.321108052 +0900
+@@ -167,7 +167,7 @@
+     Tk_Window tkwin,
+     Tcl_Obj **valuePtr,
+     char *recordPtr,
+-    int internalOffset,
++    Tcl_Size internalOffset,
+     char *saveInternalPtr,
+     int flags
+     )
+@@ -219,7 +219,7 @@
+     ClientData clientData,
+     Tk_Window tkwin,
+     char *recordPtr,
+-    int internalOffset
++    Tcl_Size internalOffset
+     )
+ {
+     TreeCtrl *tree = (TreeCtrl *) ((TkWindow *) tkwin)->instanceData;
+@@ -399,7 +399,7 @@
+ 				 * We use a pointer to the pointer because
+ 				 * we may need to return a value (NULL). */
+     char *recordPtr,		/* Pointer to storage for the widget record. */
+-    int internalOffset,		/* Offset within *recordPtr at which the
++    Tcl_Size internalOffset,	/* Offset within *recordPtr at which the
+ 				 * internal value is to be stored. */
+     char *saveInternalPtr,	/* Pointer to storage for the old value. */
+     int flags			/* Flags for the option, set Tk_SetOptions. */
+@@ -456,7 +456,7 @@
+     ClientData clientData,	/* Not used. */
+     Tk_Window tkwin,		/* Window for which option is being set. */
+     char *recordPtr,		/* Pointer to widget record. */
+-    int internalOffset		/* Offset within *recordPtr containing the
++    Tcl_Size internalOffset	/* Offset within *recordPtr containing the
+ 				 * sticky value. */
+     )
+ {
+--- treectrl-2.4.2/generic/tkTreeElem.c.orig	2025-04-18 16:19:00.993326027 +0900
++++ treectrl-2.4.2/generic/tkTreeElem.c	2025-04-18 16:21:58.309480696 +0900
+@@ -174,7 +174,7 @@
+     Tk_Window tkwin,
+     Tcl_Obj **value,
+     char *recordPtr,
+-    int internalOffset,
++    Tcl_Size internalOffset,
+     char *saveInternalPtr,
+     int flags)
+ {
+@@ -208,7 +208,7 @@
+     ClientData clientData,
+     Tk_Window tkwin,
+     char *recordPtr,
+-    int internalOffset)
++    Tcl_Size internalOffset)
+ {
+     int value = *(int *) (recordPtr + internalOffset);
+     if (value == -1)
+@@ -263,7 +263,7 @@
+     Tk_Window tkwin,
+     Tcl_Obj **value,
+     char *recordPtr,
+-    int internalOffset,
++    Tcl_Size internalOffset,
+     char *saveInternalPtr,
+     int flags)
+ {
+@@ -310,7 +310,7 @@
+     ClientData clientData,
+     Tk_Window tkwin,
+     char *recordPtr,
+-    int internalOffset)
++    Tcl_Size internalOffset)
+ {
+     IntegerClientData *cd = clientData;
+     int value = *(int *) (recordPtr + internalOffset);
+@@ -349,7 +349,7 @@
+     Tk_Window tkwin,
+     Tcl_Obj **value,
+     char *recordPtr,
+-    int internalOffset,
++    Tcl_Size internalOffset,
+     char *saveInternalPtr,
+     int flags)
+ {
+@@ -385,7 +385,7 @@
+     ClientData clientData,
+     Tk_Window tkwin,
+     char *recordPtr,
+-    int internalOffset)
++    Tcl_Size internalOffset)
+ {
+     StringTableClientData *cd = clientData;
+     int index = *(int *) (recordPtr + internalOffset);
+--- treectrl-2.4.2/generic/tkTreeHeader.c.orig	2025-04-18 16:22:52.282833066 +0900
++++ treectrl-2.4.2/generic/tkTreeHeader.c	2025-04-18 16:23:25.678051084 +0900
+@@ -244,7 +244,7 @@
+ 				 * We use a pointer to the pointer because
+ 				 * we may need to return a value (NULL). */
+     char *recordPtr,		/* Pointer to storage for the widget record. */
+-    int internalOffset,		/* Offset within *recordPtr at which the
++    Tcl_Size internalOffset,	/* Offset within *recordPtr at which the
+ 				 * internal value is to be stored. */
+     char *saveInternalPtr,	/* Pointer to storage for the old value. */
+     int flags			/* Flags for the option, set Tk_SetOptions. */
+@@ -300,7 +300,7 @@
+     ClientData clientData,	/* Not used. */
+     Tk_Window tkwin,		/* Window for which option is being set. */
+     char *recordPtr,		/* Pointer to widget record. */
+-    int internalOffset		/* Offset within *recordPtr containing the
++    Tcl_Size internalOffset	/* Offset within *recordPtr containing the
+ 				 * sticky value. */
+     )
+ {
+--- treectrl-2.4.2/generic/tkTreeUtils.c.orig	2025-04-18 16:24:04.104301951 +0900
++++ treectrl-2.4.2/generic/tkTreeUtils.c	2025-04-18 16:29:38.655493080 +0900
+@@ -118,10 +118,10 @@
+ 
+ static int	PadAmountOptionSet (ClientData clientData,
+ 		Tcl_Interp *interp, Tk_Window tkwin,
+-		Tcl_Obj **value, char *recordPtr, int internalOffset,
++		Tcl_Obj **value, char *recordPtr, Tcl_Size internalOffset,
+ 		char *saveInternalPtr, int flags);
+ static Tcl_Obj *PadAmountOptionGet (ClientData clientData,
+-		Tk_Window tkwin, char *recordPtr, int internalOffset);
++		Tk_Window tkwin, char *recordPtr, Tcl_Size internalOffset);
+ static void	PadAmountOptionRestore (ClientData clientData,
+ 		Tk_Window tkwin, char *internalPtr,
+ 		char *saveInternalPtr);
+@@ -1299,7 +1299,7 @@
+     Tcl_Obj **valuePtr,		/* The argument to "-padx", "-pady", "-ipadx",
+ 				 * or "-ipady".  The thing to be parsed. */
+     char *recordPtr,		/* Pointer to start of widget record. */
+-    int internalOffset,		/* Offset of internal representation or
++    Tcl_Size internalOffset,	/* Offset of internal representation or
+ 				 * -1, if no internal repr is wanted. */
+     char *saveInternalPtr,	/* Pointer to the place, where the saved
+ 				 * internal form (of type "int *") resides. */
+@@ -1353,7 +1353,7 @@
+     ClientData clientData,	/* unused. */
+     Tk_Window tkwin,		/* A window; unused. */
+     char *recordPtr,		/* Pointer to start of widget record. */
+-    int internalOffset		/* Offset of internal representation. */
++    Tcl_Size internalOffset	/* Offset of internal representation. */
+     )
+ {
+     int *padAmounts = *(int **)(recordPtr + internalOffset);
+@@ -3508,7 +3508,7 @@
+     Tk_Window tkwin,
+     Tcl_Obj **value,
+     char *recordPtr,
+-    int internalOffset,
++    Tcl_Size internalOffset,
+     char *saveInternalPtr,
+     int flags
+     )
+@@ -3545,7 +3545,7 @@
+     ClientData clientData,
+     Tk_Window tkwin,
+     char *recordPtr,
+-    int internalOffset
++    Tcl_Size internalOffset
+     )
+ {
+     TreeCtrl *tree = (TreeCtrl *) ((TkWindow *) tkwin)->instanceData;
+@@ -4302,7 +4302,7 @@
+     Tk_Window tkwin,
+     Tcl_Obj **value,
+     char *recordPtr,
+-    int internalOffset,
++    Tcl_Size internalOffset,
+     char *saveInternalPtr,
+     int flags
+     )
+@@ -4359,7 +4359,7 @@
+     ClientData clientData,
+     Tk_Window tkwin,
+     char *recordPtr,
+-    int internalOffset
++    Tcl_Size internalOffset
+     )
+ {
+     PerStateInfo *value = (PerStateInfo *) (recordPtr + internalOffset);
+@@ -4681,7 +4681,7 @@
+     Tk_Window tkwin,
+     Tcl_Obj **value,
+     char *recordPtr,
+-    int internalOffset,
++    Tcl_Size internalOffset,
+     char *saveInternalPtr,
+     int flags
+     )
+@@ -4745,7 +4745,7 @@
+     ClientData clientData,
+     Tk_Window tkwin,
+     char *recordPtr,
+-    int internalOffset
++    Tcl_Size internalOffset
+     )
+ {
+     DynamicCOClientData *cd = clientData;
+@@ -5148,7 +5148,7 @@
+     Tk_Window tkwin,
+     Tcl_Obj **valuePtr,
+     char *recordPtr,
+-    int internalOffset,
++    Tcl_Size internalOffset,
+     char *saveInternalPtr,
+     int flags
+     )
+@@ -5187,7 +5187,7 @@
+     ClientData clientData,
+     Tk_Window tkwin,
+     char *recordPtr,
+-    int internalOffset
++    Tcl_Size internalOffset
+     )
+ {
+     char **internalPtr = (char **) (recordPtr + internalOffset);
+@@ -5256,7 +5256,7 @@
+     Tk_Window tkwin,
+     Tcl_Obj **valuePtr,
+     char *recordPtr,
+-    int internalOffset,
++    Tcl_Size internalOffset,
+     char *saveInternalPtr,
+     int flags
+     )
+@@ -5292,7 +5292,7 @@
+     ClientData clientData,
+     Tk_Window tkwin,
+     char *recordPtr,
+-    int internalOffset
++    Tcl_Size internalOffset
+     )
+ {
+     int *internalPtr = (int *) (recordPtr + internalOffset);
+@@ -5347,7 +5347,7 @@
+     Tk_Window tkwin,
+     Tcl_Obj **valuePtr,
+     char *recordPtr,
+-    int internalOffset,
++    Tcl_Size internalOffset,
+     char *saveInternalPtr,
+     int flags
+     )
+@@ -5393,7 +5393,7 @@
+     ClientData clientData,
+     Tk_Window tkwin,
+     char *recordPtr,
+-    int internalOffset
++    Tcl_Size internalOffset
+     )
+ {
+     TreeStyle *internalPtr = (TreeStyle *) (recordPtr + internalOffset);
+@@ -5490,7 +5490,7 @@
+     Tk_Window tkwin,
+     Tcl_Obj **value,
+     char *recordPtr,
+-    int internalOffset,
++    Tcl_Size internalOffset,
+     char *saveInternalPtr,
+     int flags
+     )
+@@ -5522,7 +5522,7 @@
+     ClientData clientData,
+     Tk_Window tkwin,
+     char *recordPtr,
+-    int internalOffset
++    Tcl_Size internalOffset
+     )
+ {
+     int theFlag = PTR2INT(clientData);
+@@ -5611,7 +5611,7 @@
+     Tk_Window tkwin,
+     Tcl_Obj **value,
+     char *recordPtr,
+-    int internalOffset,
++    Tcl_Size internalOffset,
+     char *saveInternalPtr,
+     int flags
+     )
+@@ -5658,7 +5658,7 @@
+     ClientData clientData,
+     Tk_Window tkwin,
+     char *recordPtr,
+-    int internalOffset
++    Tcl_Size internalOffset
+     )
+ {
+     struct ItemButtonCOClientData *cd = clientData;
+@@ -6190,7 +6190,7 @@
+     Tk_Window tkwin,
+     Tcl_Obj **valuePtr,
+     char *recordPtr,
+-    int internalOffset,
++    Tcl_Size internalOffset,
+     char *saveInternalPtr,
+     int flags
+     )
+@@ -6228,7 +6228,7 @@
+     ClientData clientData,
+     Tk_Window tkwin,
+     char *recordPtr,
+-    int internalOffset
++    Tcl_Size internalOffset
+     )
+ {
+     TreeCtrl *tree = (TreeCtrl *) ((TkWindow *) tkwin)->instanceData;
+@@ -6352,7 +6352,7 @@
+ 				 * We use a pointer to the pointer because
+ 				 * we may need to return a value (NULL). */
+     char *recordPtr,		/* Pointer to storage for the widget record. */
+-    int internalOffset,		/* Offset within *recordPtr at which the
++    Tcl_Size internalOffset,	/* Offset within *recordPtr at which the
+ 				 internal value is to be stored. */
+     char *oldInternalPtr,	/* Pointer to storage for the old value. */
+     int flags			/* Flags for the option, set Tk_SetOptions. */
+@@ -6517,7 +6517,7 @@
+ 				 * We use a pointer to the pointer because
+ 				 * we may need to return a value (NULL). */
+     char *recordPtr,		/* Pointer to storage for the widget record. */
+-    int internalOffset,		/* Offset within *recordPtr at which the
++    Tcl_Size internalOffset,	/* Offset within *recordPtr at which the
+ 				 internal value is to be stored. */
+     char *oldInternalPtr,	/* Pointer to storage for the old value. */
+     int flags			/* Flags for the option, set Tk_SetOptions. */

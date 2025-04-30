@@ -1,0 +1,20 @@
+--- treectrl-2.4.2/generic/tkTreeCtrl.c.orig	2025-04-18 16:15:55.231220458 +0900
++++ treectrl-2.4.2/generic/tkTreeCtrl.c	2025-04-18 16:17:05.912641123 +0900
+@@ -361,7 +361,7 @@
+ static int TreeConfigure(Tcl_Interp *interp, TreeCtrl *tree, int objc,
+     Tcl_Obj *const objv[], int createFlag);
+ static void TreeEventProc(ClientData clientData, XEvent * eventPtr);
+-static void TreeDestroy(char *memPtr);
++static void TreeDestroy(void *memPtr);
+ static void TreeCmdDeletedProc(ClientData clientData);
+ static void TreeWorldChanged(ClientData instanceData);
+ static void TreeComputeGeometry(TreeCtrl *tree);
+@@ -1783,7 +1783,7 @@
+ 
+ static void
+ TreeDestroy(
+-    char *memPtr		/* Widget info. */
++    void *memPtr		/* Widget info. */
+     )
+ {
+     TreeCtrl *tree = (TreeCtrl *) memPtr;
