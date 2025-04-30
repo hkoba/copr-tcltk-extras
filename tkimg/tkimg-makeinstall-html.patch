@@ -1,0 +1,13 @@
+--- Img-2.0.1/Makefile.in.orig	2025-04-30 17:43:44.228620048 +0900
++++ Img-2.0.1/Makefile.in	2025-04-30 17:45:26.298194966 +0900
+@@ -120,8 +120,8 @@
+ 	done
+ 
+ install-html:
+-	mkdir -p $(MAN_INSTALL_DIR)/html
+-	dtplite -ext html -o $(MAN_INSTALL_DIR)/html -exclude *.inc html $(srcdir)/doc
++	mkdir -p $(INSTALL_ROOT)$(HTML_INSTALL_DIR)
++	dtplite -ext html -o $(INSTALL_ROOT)$(HTML_INSTALL_DIR) -exclude *.inc html $(srcdir)/doc
+ 
+ collate: all
+ 	rm -f pkgIndex.tcl
