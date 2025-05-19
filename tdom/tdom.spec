@@ -1,24 +1,25 @@
-%{!?tcl_sitearch: %define tcl_sitearch %{_libdir}/tcl%(echo 'puts $tcl_version' | tclsh)}
+%{!?tcl_version: %global tcl_version %((echo '8.6'; echo 'puts $tcl_version' | tclsh 2>/dev/null) | tail -1)}
+%{!?tcl_sitearch: %global tcl_sitearch %{_libdir}/tcl%{tcl_version}}
+
+%global commit 1c6857702b1c126f
+%global shortcommit %(c=%{commit}; echo ${c:0:10})
 
 Name:           tdom
-Version:        0.8.2
-Release:        40%{?dist}
+Version:        0.9.6
+Release:        1%{?dist}
 Summary:        DOM parser for Tcl
 
 # Most files MPL except for ./generic/xmlsimple.c and ./generic/domhtml.c
 # which are LGPLV2+.
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
-URL:            http://www.tdom.org
-Source0:        http://www.tdom.org/files/tDOM-%{version}.tgz
-Patch0:         tdom-0.8.2-noexpat.patch
-Patch1:         tdom-0.8.2-tcl8.6.patch
-Patch2:         tdom-configure-c99.patch
+URL:            https://tdom.org
+Source0:        https://tdom.org/index.html/tarball/%{shortcommit}/tDOM-%{shortcommit}.tar.gz
 
 BuildRequires: make
 BuildRequires:  gcc
 BuildRequires:  tcl-devel expat-devel
-Requires:       tcl(abi) = 8.6
+Requires:       tcl(abi) = %{tcl_version}
 
 %description
 tDOM combines high performance XML data processing with easy and powerful Tcl
@@ -32,46 +33,40 @@ Requires:       %{name} = %{version}-%{release} expat-devel
 Development header files for compiling against tdom.
 
 %prep
-%setup -q -n tDOM-%{version}
-%patch -P0 -p1
-%patch -P1 -p1
-%patch -P2 -p1
+%setup -q -n tDOM-%{shortcommit}
 
 %build
 %configure --enable-threads
 make %{?_smp_mflags}
 
-rm -rf expat
+# rm -rf expat
 
 %install
-make install DESTDIR=%{buildroot}
+make install DESTDIR=%{buildroot} \
+     libdir=%{tcl_sitearch} \
+     INSTALL_LIBRARY="%{__install} -p -m 755"
 
-mkdir -p %{buildroot}%{tcl_sitearch}
-mv %{buildroot}%{_libdir}/%{name}%{version}/*.so %{buildroot}%{_libdir}
-mv %{buildroot}%{_libdir}/%{name}%{version}/*.a %{buildroot}%{_libdir}
-mv %{buildroot}%{_libdir}/%{name}%{version} %{buildroot}%{tcl_sitearch}
-
-# Adjust some paths to reflect the new file locations
-sed -i -e 's/file join $dir libtdom/file join $dir .. .. libtdom/' %{buildroot}%{tcl_sitearch}/%{name}%{version}/pkgIndex.tcl
-
-sed -i -e "s#%{_libdir}/%{name}%{version}#%{_libdir}#" %{buildroot}%{_libdir}/tdomConfig.sh
+%check
+make test
 
 %files
-%doc README LICENSE CHANGES ChangeLog doc/*.html NPL-1_1Final.html
-%{tcl_sitearch}/%{name}%{version}
-%{_libdir}/*.so
-%exclude %{_libdir}/*.a
+%doc README.* LICENSE CHANGES ChangeLog doc/*.html MPL_*.html
+%{tcl_sitearch}/%{name}%{version}/*
+%exclude %{tcl_sitearch}/%{name}%{version}/*.a
 %{_mandir}/mann/*.gz
 
 %files devel
-%{_libdir}/%{name}Config.sh
+%{tcl_sitearch}/%{name}Config.sh
 # This static library is a 'stub' library that is used to assist with
 # shared lib linking across library versions:  http://wiki.tcl.tk/285
-%{_libdir}/*.a
+%{tcl_sitearch}/%{name}%{version}/*.a
 %{_includedir}/*.h
 
 
 %changelog
+* Mon May 19 14:40:23 JST 2025 hkoba <buribullet@gmail.com> - 0.9.6-1
+- 0.9.6 pre (for tcl9 + c23)
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
