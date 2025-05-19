@@ -44,8 +44,8 @@ Provides: bundled(zlib) = 1.2.13
 Provides: bundled(libjpeg) = 9e
 Provides: bundled(libpng) = 1.6.39
 Provides: bundled(libtiff) = 4.5.0
-Requires: tcl(abi) = 8.6
-Requires: tk >= 8.6
+Requires: tcl(abi) = %{tcl_version}
+Requires: tk >= %{tcl_version}
 
 %description
 This package contains a collection of image format handlers for the Tk
@@ -87,8 +87,8 @@ make %{?_smp_mflags} INSTALL_ROOT=%{buildroot} install \
 %{tcl_sitearch}/Img%{version}/*.a
 
 %changelog
-* Wed Apr 30 17:22:00 JST 2025 hkoba <buribullet@gmail.com> - 2.0.1-1
-- update to 2.0.1
+* Mon May 19 16:14:53 JST 2025 hkoba <buribullet@gmail.com> - 2.0.1-1
+- update to 2.0.1 (for tcl9)
 
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.16-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
