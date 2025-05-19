@@ -17,7 +17,7 @@ Summary:	Image support library for Tk
 License:	TCL AND libtiff AND HPND-Pbmplus AND URT-RLE AND IJG AND Libpng AND (BSD-4-Clause OR GPL-2.0-or-later) AND BSD-4-Clause AND MIT AND Zlib
 # Try saying that three times fast.
 URL:		http://sourceforge.net/projects/tkimg
-Source0:	https://downloads.sourceforge.net/project/tkimg/tkimg/%{version}/Img-%{version}.tar.gz
+Source0:	https://sourceforge.net/projects/tkimg/files/tkimg/2.0/tkimg%20%{version}/Img-%{version}.tar.gz
 BuildRequires:	make
 BuildRequires:	gcc
 BuildRequires:	tcl-devel tk-devel tcllib
