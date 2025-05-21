@@ -1,10 +1,4 @@
-%if "%{dist}" == ".el7"
-%global tcl_version 8.5
-%elif 0%{?fedora} >= 42
-%global tcl_version 9.0
-%else
-%global tcl_version 8.6
-%endif
+%{!?tcl_version: %global tcl_version %((echo 8.6; echo 'puts $tcl_version' | tclsh) | tail -1)}
 %global tcl_sitelib %{_datadir}/tcl%{tcl_version}
 
 %global version	 0.4
@@ -15,9 +9,10 @@ Name:      tcl-fcgi
 Version:   %{version}
 Group:     Development/Languages/Tcl
 URL:       https://www.nyx.net/~tpoindex/tcl.html#Fcgi
-Release:   4h
+Release:   5h
 Source:    ftp://ftp.procplace.com/pub/tcl/sorted/packages-7.6/net/fcgi.tcl-0.4/fcgi.tcl-%{version}.tar.gz
 Patch0: tcl-fcgi-rename.patch
+Patch1: fcgi-tcl9.patch
 License:   BSD
 Packager:  hkoba <hkoba@users.sourceforge.net>
 Buildroot: %{_tmppath}/%{name}-%{version}
@@ -34,6 +29,7 @@ this package provides only a Tcl source version which is written in 100% pure Tc
 
 %setup -n fcgi.tcl-%{version}
 %patch 0 -p0
+%patch 1 -p1
 
 %build
 

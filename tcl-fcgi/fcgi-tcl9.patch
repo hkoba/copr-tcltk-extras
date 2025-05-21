@@ -1,0 +1,45 @@
+--- fcgi.tcl-0.4/tcl-src/fcgi.tcl.in.orig	2025-05-21 13:32:15.860365619 +0900
++++ fcgi.tcl-0.4/tcl-src/fcgi.tcl.in	2025-05-21 13:32:52.076901708 +0900
+@@ -20,7 +20,7 @@
+ namespace eval fcgi {
+  
+ variable fcgi
+-global env
++# global env
+  
+ ###############################################################################
+ # define fcgi constants (from fastcgi.h)
+@@ -948,7 +948,7 @@
+ namespace eval fcgi {
+ 
+ variable fcgi
+-global env
++# global env
+ 
+ 
+ ###############################################################################
+@@ -997,18 +997,18 @@
+ set port -1
+ 
+ # check for argv "-port xxx" first
+-global argv argc
+-for {set i 0} {$i < $argc} {incr i} {
+-  if {[string compare [lindex $argv $i] "-port"] == 0} {
++# global argv argc
++for {set i 0} {$i < $::argc} {incr i} {
++  if {[string compare [lindex $::argv $i] "-port"] == 0} {
+     incr i
+-    scan [lindex $argv $i] %d port
++    scan [lindex $::argv $i] %d port
+   }
+ }
+ 
+ # next, check env(PORT)
+ if {$port < 0} {
+-  if {[info exists env(PORT)]} {
+-    scan $env(PORT) %d port
++  if {[info exists ::env(PORT)]} {
++    scan $::env(PORT) %d port
+   }
+ }
+ 
