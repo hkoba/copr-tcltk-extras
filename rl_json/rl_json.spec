@@ -3,14 +3,15 @@
 %global _pure_package_name rl_json
 
 Name:       tcl-%{_pure_package_name}
-Version:    0.15.2
+Version:    0.15.3
 Release:    1%{?dist}
 Summary:    Tcl_Objtype support for JSON
 URL:        https://github.com/RubyLane/rl_json
 License:    TCL
-Source0:    rl_json-%{version}.tar.gz
+Source0:    https://github.com/RubyLane/rl_json/archive/refs/tags/%{_pure_package_name}-%{version}.tar.gz
 Source1:    teabase@b293fee.tar.gz
 Source2:    tclconfig@683a8da67.tar.gz
+Patch1:     rl_json-gcc14.patch
 BuildRequires: autoconf automake libtool
 BuildRequires: make, gcc, tcl-devel >= %{tcl_version}
 Requires: tcl(abi) >= %{tcl_version}
@@ -28,6 +29,8 @@ whose string representation is a valid dictionary. It is similar to
 
 tar xvf %{SOURCE1}
 tar xvf %{SOURCE2}
+
+%patch 1 -p1
 
 %build
 autoreconf -fvi
@@ -55,3 +58,5 @@ mv $RPM_BUILD_ROOT/%{_mandir}/mann/json.n $RPM_BUILD_ROOT/%{_mandir}/mann/rl_jso
 %{_mandir}/mann/*
 
 %changelog
+* Tue Jun 17 16:59:50 JST 2025 hkoba <buribullet@gmail.com> - 0.15.3-1
+- First build (for Fedora42, Tcl9)
