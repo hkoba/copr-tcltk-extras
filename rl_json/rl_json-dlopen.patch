@@ -1,0 +1,10 @@
+--- rl_json-0.15.3/pkgIndex.tcl.in.orig	2025-06-20 11:35:01.886413485 +0900
++++ rl_json-0.15.3/pkgIndex.tcl.in	2025-06-20 11:35:41.781634225 +0900
+@@ -3,6 +3,6 @@
+ #
+ package ifneeded @PACKAGE_NAME@ @PACKAGE_VERSION@ [list apply {
+ 	dir {
+-    	load [file join $dir @PKG_LIB_FILE@] @PACKAGE_NAME@
++	    load [file join $dir @PKG_LIB_FILE@] [string totitle @PACKAGE_NAME@]
+ 	}
+ } $dir]

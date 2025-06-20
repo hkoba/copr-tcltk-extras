@@ -4,7 +4,7 @@
 
 Name:       tcl-%{_pure_package_name}
 Version:    0.15.3
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Tcl_Objtype support for JSON
 URL:        https://github.com/RubyLane/rl_json
 License:    TCL
@@ -12,6 +12,8 @@ Source0:    https://github.com/RubyLane/rl_json/archive/refs/tags/%{_pure_packag
 Source1:    teabase@b293fee.tar.gz
 Source2:    tclconfig@683a8da67.tar.gz
 Patch1:     rl_json-gcc14.patch
+Patch2:     rl_json-inttype.patch
+Patch3:     rl_json-dlopen.patch
 BuildRequires: autoconf automake libtool
 BuildRequires: make, gcc, tcl-devel >= %{tcl_version}
 Requires: tcl(abi) >= %{tcl_version}
@@ -31,6 +33,8 @@ tar xvf %{SOURCE1}
 tar xvf %{SOURCE2}
 
 %patch 1 -p1
+%patch 2 -p1
+%patch 3 -p1
 
 %build
 autoreconf -fvi

@@ -1,0 +1,18 @@
+--- rl_json-0.15.3/generic/rl_json.c.orig	2025-06-20 11:31:34.486280024 +0900
++++ rl_json-0.15.3/generic/rl_json.c	2025-06-20 11:32:21.302524962 +0900
+@@ -3979,7 +3979,14 @@
+ 	l->typeDouble = Tcl_GetObjType("double");
+ 	l->typeBignum = Tcl_GetObjType("bignum");
+ 	if (l->typeDict == NULL) THROW_ERROR("Can't retrieve objType for dict");
+-	if (l->typeInt == NULL) THROW_ERROR("Can't retrieve objType for int");
++	if (l->typeInt == NULL) {
++        Tcl_Obj* tmpInt = Tcl_NewIntObj(0);
++        if (tmpInt) {
++            l->typeInt = tmpInt->typePtr;
++        } else {
++            THROW_ERROR("Can't retrieve objType for int");
++        }
++    }
+ 	if (l->typeDouble == NULL) THROW_ERROR("Can't retrieve objType for double");
+ 	//if (l->typeBignum == NULL) THROW_ERROR("Can't retrieve objType for bignum");
+ 
