@@ -8,7 +8,7 @@ Release:    2%{?dist}
 Summary:    Tcl_Objtype support for JSON
 URL:        https://github.com/RubyLane/rl_json
 License:    TCL
-Source0:    https://github.com/RubyLane/rl_json/archive/refs/tags/%{_pure_package_name}-%{version}.tar.gz
+Source0:    https://github.com/RubyLane/rl_json/archive/refs/tags/%{version}.tar.gz
 Source1:    teabase@b293fee.tar.gz
 Source2:    tclconfig@683a8da67.tar.gz
 Patch1:     rl_json-gcc14.patch
